@@ -16671,8 +16671,16 @@ PrefabInstance:
       value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: _wallCheckDistance
+      value: 0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: _groundCheckBoxSize.x
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _groundCheckBoxSize.y
-      value: 1.005
+      value: 1.41
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _playerSlideCoolDownTime
@@ -16685,6 +16693,18 @@ PrefabInstance:
     - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: m_LocalPosition.x
