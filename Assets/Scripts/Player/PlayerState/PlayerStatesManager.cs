@@ -19,6 +19,7 @@ public class PlayerStatesManager : MonoBehaviour
     private bool _isMovePress;
     private bool _isCrouchPress;
     private bool _isCrouchRelease;
+    private bool _isJumpDownPress;
     private Vector2 _lastMove = Vector2.zero;
     private int _jumpCountsLeft;
     private float _jumpTimeCounter;
@@ -42,6 +43,7 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] float _jumpCancelRate;
     [SerializeField] Vector2 _groundCheckBoxSize;
     [SerializeField] LayerMask _whatIsGround;
+    [SerializeField] LayerMask _whatIsOneWayPlatform;
 
     [Header("Wall Slide and Wall Jump")]
     [SerializeField] float _wallSlideSpeed;
@@ -58,6 +60,7 @@ public class PlayerStatesManager : MonoBehaviour
     public bool IsMovePress { get => _isMovePress; set => _isMovePress = value; }
     public bool IsCrouchPress { get => _isCrouchPress; set => _isCrouchPress = value; }
     public bool IsCrouchRelease { get => _isCrouchRelease; set => _isCrouchRelease = value; }
+    public bool IsJumpDownPress { get => _isJumpDownPress; set => _isJumpDownPress = value; }
     public Vector2 LastMove { get => _lastMove; set => _lastMove = value; }
     public int JumpCountsLeft { get => _jumpCountsLeft; set => _jumpCountsLeft = value; }
     public float JumpTimeCounter { get => _jumpTimeCounter; set => _jumpTimeCounter = value; }
@@ -74,6 +77,7 @@ public class PlayerStatesManager : MonoBehaviour
     public float JumpTime { get => _jumpTime; set => _jumpTime = value; }
     public float JumpCancelRate { get => _jumpCancelRate; set => _jumpCancelRate = value; }
     public LayerMask WhatIsGround { get => _whatIsGround; set => _whatIsGround = value; }
+    public LayerMask WhatIsOneWayPlatform { get => _whatIsOneWayPlatform; set => _whatIsOneWayPlatform = value; }
     public float WallSlideSpeed { get => _wallSlideSpeed; set => _wallSlideSpeed = value; }
     public float WallJumpForce { get => _wallJumpForce; set => _wallJumpForce = value; }
     public Vector2 WallJumpDirection { get => _wallJumpDirection; set => _wallJumpDirection = value; }
@@ -136,6 +140,10 @@ public class PlayerStatesManager : MonoBehaviour
     {
         return Physics2D.OverlapBox(transform.position - new Vector3(0.0f, 0.02f, 0.0f), _groundCheckBoxSize, 0, WhatIsGround);
     }
+    public bool CheckOnOneWayPlatform()
+    {
+        return Physics2D.OverlapBox(transform.position - new Vector3(0.0f, 0.02f, 0.0f), _groundCheckBoxSize, 0, WhatIsOneWayPlatform);
+    }
     public bool CheckIsTouchingWall()
     {
         return Physics2D.Raycast(transform.position, transform.right, _wallCheckDistance, WhatIsGround);
@@ -164,7 +172,7 @@ public class PlayerStatesManager : MonoBehaviour
     #endregion
 
     #region input callback
-    public void onJump(InputAction.CallbackContext ctx)
+    public void OnJump(InputAction.CallbackContext ctx)
     {
         if(ctx.performed)
         {
@@ -203,6 +211,17 @@ public class PlayerStatesManager : MonoBehaviour
         {
             IsCrouchPress = false;
             IsCrouchRelease = true;
+        }
+    }
+    public void OnJumpDown(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _isJumpDownPress = true;
+        }
+        if (ctx.canceled)
+        {
+            _isJumpDownPress = false;
         }
     }
     #endregion

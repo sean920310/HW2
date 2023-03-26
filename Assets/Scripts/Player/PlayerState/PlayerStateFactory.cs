@@ -39,4 +39,8 @@ public class PlayerStateFactory
     {
         return new PlayerFallState(_context, this);
     }
+    public PlayerBaseState JumpDown()
+    {
+        return new PlayerJumpDownState(_context, this);
+    }
 }

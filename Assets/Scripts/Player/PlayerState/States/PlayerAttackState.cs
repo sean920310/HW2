@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerIdleState : PlayerBaseState
+public class PlayerAttackState : PlayerBaseState
 {
-    public PlayerIdleState(PlayerStatesManager context, PlayerStateFactory factory)
+    public PlayerAttackState(PlayerStatesManager context, PlayerStateFactory factory)
         : base(context, factory)
     {
         _context = context;
@@ -12,7 +12,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState()
     {
         _context.PlayerRigidbody.velocity = new Vector2(0f, _context.PlayerRigidbody.velocity.y);
-        if(_context.CheckOnGround())
+        if (_context.CheckOnGround())
         {
             _context.PlayerRigidbody.isKinematic = true;
             _context.PlayerAnimator.SetBool("onGround", true);
@@ -53,10 +53,6 @@ public class PlayerIdleState : PlayerBaseState
         else if (_context.PlayerRigidbody.velocity.y < -0.001)
         {
             _context.SwitchState(_factory.Fall());
-        }
-        else if (_context.IsJumpDownPress && _context.CheckOnOneWayPlatform())
-        {
-            _context.SwitchState(_factory.JumpDown());
         }
     }
 }

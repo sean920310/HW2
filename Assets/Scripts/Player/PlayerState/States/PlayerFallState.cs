@@ -42,7 +42,7 @@ public class PlayerFallState : PlayerBaseState
 
     public override void CheckSwitchState()
     {
-        if (_context.CheckOnGround())
+        if (_context.CheckOnGround() && _context.gameObject.layer != 7)
         {
             _context.JumpCountsLeft = _context.JumpCounts;
             _context.SwitchState(_factory.Idle());
@@ -54,6 +54,10 @@ public class PlayerFallState : PlayerBaseState
         else if (_context.IsJumpPress && _context.canJump())
         {
             _context.SwitchState(_factory.Jump());
+        }
+        else if (_context.IsJumpDownPress && _context.CheckOnOneWayPlatform())
+        {
+            _context.SwitchState(_factory.JumpDown());
         }
     }
 }

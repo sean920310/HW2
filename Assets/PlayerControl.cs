@@ -62,6 +62,15 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JumpDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""a22faadb-1b42-4fa8-9688-61a4bd6da56f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -130,6 +139,17 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d14dc67-9e0f-407e-b01b-c6882ca33c0f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -159,6 +179,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_PlayerNormal_Movement = m_PlayerNormal.FindAction("Movement", throwIfNotFound: true);
         m_PlayerNormal_Attack = m_PlayerNormal.FindAction("Attack", throwIfNotFound: true);
         m_PlayerNormal_Crouch = m_PlayerNormal.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerNormal_JumpDown = m_PlayerNormal.FindAction("JumpDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -224,6 +245,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerNormal_Movement;
     private readonly InputAction m_PlayerNormal_Attack;
     private readonly InputAction m_PlayerNormal_Crouch;
+    private readonly InputAction m_PlayerNormal_JumpDown;
     public struct PlayerNormalActions
     {
         private @PlayerControl m_Wrapper;
@@ -232,6 +254,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerNormal_Movement;
         public InputAction @Attack => m_Wrapper.m_PlayerNormal_Attack;
         public InputAction @Crouch => m_Wrapper.m_PlayerNormal_Crouch;
+        public InputAction @JumpDown => m_Wrapper.m_PlayerNormal_JumpDown;
         public InputActionMap Get() { return m_Wrapper.m_PlayerNormal; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -253,6 +276,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @JumpDown.started += instance.OnJumpDown;
+            @JumpDown.performed += instance.OnJumpDown;
+            @JumpDown.canceled += instance.OnJumpDown;
         }
 
         private void UnregisterCallbacks(IPlayerNormalActions instance)
@@ -269,6 +295,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @JumpDown.started -= instance.OnJumpDown;
+            @JumpDown.performed -= instance.OnJumpDown;
+            @JumpDown.canceled -= instance.OnJumpDown;
         }
 
         public void RemoveCallbacks(IPlayerNormalActions instance)
@@ -301,5 +330,6 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnJumpDown(InputAction.CallbackContext context);
     }
 }
