@@ -12,6 +12,13 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState()
     {
         _context.PlayerRigidbody.velocity = new Vector2(0f, _context.PlayerRigidbody.velocity.y);
+        if(_context.CheckOnGround())
+        {
+            _context.PlayerRigidbody.isKinematic = true;
+            _context.PlayerAnimator.SetBool("onGround", true);
+            _context.PlayerRigidbody.velocity = Vector2.zero;
+
+        }
     }
 
     public override void UpdateState()
@@ -26,6 +33,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void ExitState()
     {
+        _context.PlayerRigidbody.isKinematic = false;
     }
 
     public override void CheckSwitchState()
