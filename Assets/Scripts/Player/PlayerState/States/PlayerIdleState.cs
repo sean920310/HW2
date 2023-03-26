@@ -54,5 +54,9 @@ public class PlayerIdleState : PlayerBaseState
         {
             _context.SwitchState(_factory.Fall());
         }
+        else if (_context.IsJumpDownPress && _context.CheckOnOneWayPlatform())
+        {
+            _context.SwitchState(_factory.JumpDown());
+        }
     }
 }
