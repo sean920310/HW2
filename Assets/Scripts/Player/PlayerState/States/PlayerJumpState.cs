@@ -18,7 +18,7 @@ public class PlayerJumpState : PlayerBaseState
 
         // set animation veriable
         _context.PlayerAnimator.SetBool("onGround", false);
-        _context.PlayerAnimator.SetBool("isJump", true);
+        _context.PlayerAnimator.SetTrigger("isJump");
 
         // calculate jump force base on jump height
         float jumpForce = Mathf.Sqrt(_context.JumpHeight * -2 * (Physics2D.gravity.y * _context.PlayerRigidbody.gravityScale));
@@ -60,11 +60,11 @@ public class PlayerJumpState : PlayerBaseState
         {
             _context.SwitchState(_factory.Fall());
         }
-        else if (_context.CheckOnGround())
-        {
-            _context.JumpCountsLeft = _context.JumpCounts;
-            _context.SwitchState(_factory.Idle());
-        }
+        //else if (_context.CheckOnGround())
+        //{
+        //    _context.JumpCountsLeft = _context.JumpCounts;
+        //    _context.SwitchState(_factory.Idle());
+        //}
         else if (_context.CheckIsTouchingWall() && !_context.CheckOnGround() && _context.PlayerRigidbody.velocity.y < 0f)
         {
             _context.SwitchState(_factory.WallSlide());
