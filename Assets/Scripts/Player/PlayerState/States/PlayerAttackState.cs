@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerBaseState
 {
+    Animation animate;
+    float attackCounter;
     public PlayerAttackState(PlayerStatesManager context, PlayerStateFactory factory)
         : base(context, factory)
     {
@@ -11,18 +13,23 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void EnterState()
     {
-        _context.PlayerRigidbody.velocity = new Vector2(0f, _context.PlayerRigidbody.velocity.y);
+        _context.PlayerAnimator.SetTrigger("onAttack");
+
         if (_context.CheckOnGround())
         {
             _context.PlayerRigidbody.isKinematic = true;
-            _context.PlayerAnimator.SetBool("onGround", true);
-            _context.PlayerRigidbody.velocity = Vector2.zero;
-
         }
+        _context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
     }
 
     public override void UpdateState()
     {
+        if (_context.CheckOnGround())
+        {
+            _context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
+        }
+
+        attackCounter += Time.deltaTime;
         CheckSwitchState();
     }
 
@@ -34,25 +41,12 @@ public class PlayerAttackState : PlayerBaseState
     public override void ExitState()
     {
         _context.PlayerRigidbody.isKinematic = false;
+        _context.IsAttackPress = false;
     }
 
     public override void CheckSwitchState()
     {
-        if (_context.IsMovePress)
-        {
-            _context.SwitchState(_factory.Walk());
-        }
-        else if (_context.IsJumpPress && _context.canJump())
-        {
-            _context.SwitchState(_factory.Jump());
-        }
-        else if (_context.IsCrouchPress)
-        {
-            _context.SwitchState(_factory.Crouch());
-        }
-        else if (_context.PlayerRigidbody.velocity.y < -0.001)
-        {
-            _context.SwitchState(_factory.Fall());
-        }
+        if(attackCounter > _context.AttackAnimation.length)
+            _context.SwitchState(_factory.Idle());
     }
 }

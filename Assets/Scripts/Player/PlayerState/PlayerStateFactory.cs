@@ -43,4 +43,8 @@ public class PlayerStateFactory
     {
         return new PlayerJumpDownState(_context, this);
     }
+    public PlayerBaseState Attack()
+    {
+        return new PlayerAttackState(_context, this);
+    }
 }

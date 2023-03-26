@@ -20,6 +20,7 @@ public class PlayerStatesManager : MonoBehaviour
     private bool _isCrouchPress;
     private bool _isCrouchRelease;
     private bool _isJumpDownPress;
+    private bool _isAttackPress;
     private Vector2 _lastMove = Vector2.zero;
     private int _jumpCountsLeft;
     private float _jumpTimeCounter;
@@ -42,6 +43,7 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] float _jumpTime; // how long will jump force be cancel
     [SerializeField] float _jumpCancelRate;
     [SerializeField] Vector2 _groundCheckBoxSize;
+    [SerializeField] Vector2 _groundCheckBoxShift;
     [SerializeField] LayerMask _whatIsGround;
     [SerializeField] LayerMask _whatIsOneWayPlatform;
 
@@ -50,6 +52,9 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] float _wallCheckDistance;
     [SerializeField] float _wallJumpForce;
     [SerializeField] Vector2 _wallJumpDirection;
+
+    [Header("Attack")]
+    [SerializeField] AnimationClip _attackAnimation;
 
     public Animator PlayerAnimator { get => _playerAnimator; set => _playerAnimator = value; }
     public Rigidbody2D PlayerRigidbody { get => _playerRigidbody; set => _playerRigidbody = value; }
@@ -61,6 +66,7 @@ public class PlayerStatesManager : MonoBehaviour
     public bool IsCrouchPress { get => _isCrouchPress; set => _isCrouchPress = value; }
     public bool IsCrouchRelease { get => _isCrouchRelease; set => _isCrouchRelease = value; }
     public bool IsJumpDownPress { get => _isJumpDownPress; set => _isJumpDownPress = value; }
+    public bool IsAttackPress { get => _isAttackPress; set => _isAttackPress = value; }
     public Vector2 LastMove { get => _lastMove; set => _lastMove = value; }
     public int JumpCountsLeft { get => _jumpCountsLeft; set => _jumpCountsLeft = value; }
     public float JumpTimeCounter { get => _jumpTimeCounter; set => _jumpTimeCounter = value; }
@@ -81,6 +87,7 @@ public class PlayerStatesManager : MonoBehaviour
     public float WallSlideSpeed { get => _wallSlideSpeed; set => _wallSlideSpeed = value; }
     public float WallJumpForce { get => _wallJumpForce; set => _wallJumpForce = value; }
     public Vector2 WallJumpDirection { get => _wallJumpDirection; set => _wallJumpDirection = value; }
+    public AnimationClip AttackAnimation { get => _attackAnimation; set => _attackAnimation = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -138,11 +145,11 @@ public class PlayerStatesManager : MonoBehaviour
     }
     public bool CheckOnGround()
     {
-        return Physics2D.OverlapBox(transform.position - new Vector3(0.0f, 0.02f, 0.0f), _groundCheckBoxSize, 0, WhatIsGround);
+        return Physics2D.OverlapBox(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, transform.position.z), _groundCheckBoxSize, 0, WhatIsGround);
     }
     public bool CheckOnOneWayPlatform()
     {
-        return Physics2D.OverlapBox(transform.position - new Vector3(0.0f, 0.02f, 0.0f), _groundCheckBoxSize, 0, WhatIsOneWayPlatform);
+        return Physics2D.OverlapBox(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, transform.position.z), _groundCheckBoxSize, 0, WhatIsOneWayPlatform);
     }
     public bool CheckIsTouchingWall()
     {
@@ -156,7 +163,7 @@ public class PlayerStatesManager : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.7f);
-        Gizmos.DrawCube(transform.position - new Vector3(0.0f, 0.02f, 0.0f), _groundCheckBoxSize);
+        Gizmos.DrawCube(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, 0.0f), _groundCheckBoxSize);
         Gizmos.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + _wallCheckDistance, transform.position.y, transform.position.z));
     }
@@ -222,6 +229,13 @@ public class PlayerStatesManager : MonoBehaviour
         if (ctx.canceled)
         {
             _isJumpDownPress = false;
+        }
+    }
+    public void OnJAttack(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _isAttackPress = true;
         }
     }
     #endregion
