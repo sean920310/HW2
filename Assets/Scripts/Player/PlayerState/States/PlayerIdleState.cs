@@ -64,5 +64,9 @@ public class PlayerIdleState : PlayerBaseState
         {
             _context.SwitchState(_factory.Attack());
         }
+        else if (_context.IsBlockingPress)
+        {
+            _context.SwitchState(_factory.Blocking());
+        }
     }
 }

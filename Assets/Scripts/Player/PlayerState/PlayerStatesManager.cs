@@ -23,6 +23,7 @@ public class PlayerStatesManager : MonoBehaviour
     private bool _isCrouchRelease;
     private bool _isJumpDownPress;
     private bool _isAttackPress;
+    private bool _isBlockingPress;
     private Vector2 _lastMove = Vector2.zero;
     private int _jumpCountsLeft;
     private float _jumpTimeCounter;
@@ -120,6 +121,7 @@ public class PlayerStatesManager : MonoBehaviour
     public GameObject Weapon { get => _weapon; set => _weapon = value; }
     public float AttackCoolDownTime { get => _attackCoolDownTime; set => _attackCoolDownTime = value; }
     public bool CanAttack { get => _canAttack; set => _canAttack = value; }
+    public bool IsBlockingPress { get => _isBlockingPress; set => _isBlockingPress = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -295,11 +297,22 @@ public class PlayerStatesManager : MonoBehaviour
             _isJumpDownPress = false;
         }
     }
-    public void OnJAttack(InputAction.CallbackContext ctx)
+    public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
             _isAttackPress = true;
+        }
+    }
+    public void OnShield(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            IsBlockingPress = true;
+        }
+        if (ctx.canceled)
+        {
+            IsBlockingPress = false;
         }
     }
     #endregion

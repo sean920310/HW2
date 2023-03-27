@@ -59,9 +59,9 @@ public class PlayerSlideState : PlayerBaseState
         {
             _context.SwitchState(_factory.Idle());
         }
-        else if (_context.PlayerRigidbody.velocity.y >= -0.1)
+        else if (_context.IsAttackPress && _context.CanAttack)
         {
-            //_context.SwitchState(_factory.Fall());
+            _context.SwitchState(_factory.Attack());
         }
     }
 

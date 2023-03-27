@@ -20,7 +20,7 @@ public class PlayerAttackState : PlayerBaseState
         {
             _context.PlayerRigidbody.isKinematic = true;
         }
-        _context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
+        //_context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
         _context.startCorutine(AttackTime());
 
         _context.Weapon.SetActive(true);
