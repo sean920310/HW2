@@ -58,5 +58,9 @@ public class PlayerIdleState : PlayerBaseState
         {
             _context.SwitchState(_factory.JumpDown());
         }
+        else if (_context.IsAttackPress)
+        {
+            _context.SwitchState(_factory.Attack());
+        }
     }
 }
