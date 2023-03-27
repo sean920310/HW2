@@ -70,7 +70,7 @@ public class PlayerWalkState : PlayerBaseState
         {
             _context.SwitchState(_factory.JumpDown());
         }
-        else if (_context.IsAttackPress)
+        else if (_context.IsAttackPress && _context.CanAttack)
         {
             _context.SwitchState(_factory.Attack());
         }

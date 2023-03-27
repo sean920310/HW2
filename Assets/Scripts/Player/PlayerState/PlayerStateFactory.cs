@@ -47,4 +47,8 @@ public class PlayerStateFactory
     {
         return new PlayerAttackState(_context, this);
     }
+    public PlayerBaseState Blocking()
+    {
+        return new PlayerBlockingState(_context, this);
+    }
 }
