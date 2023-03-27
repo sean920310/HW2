@@ -18,6 +18,11 @@ public class PlayerSlideState : PlayerBaseState
         _context.PlayerAnimator.SetFloat("velocityX", 1f);
 
         _context.PlayerRigidbody.AddForce(new Vector2(_context.facingDirection() * _context.PlayerSlideForce, 0), ForceMode2D.Impulse);
+
+        _context.PlayerBoxCollider.size = _context.SlideColliderSize;
+        _context.PlayerBoxCollider.offset = _context.SlideColliderShift;
+
+        _context.PlayerBoxCollider.sharedMaterial = _context.SlidePhysics;
     }
 
     public override void UpdateState()
@@ -34,7 +39,7 @@ public class PlayerSlideState : PlayerBaseState
 
     public override void FixedUpdateState()
     {
-        _context.PlayerRigidbody.velocity = new Vector2(_context.facingDirection() * Mathf.Abs(_context.PlayerRigidbody.velocity.x) * _context.PlayerSlideCancelRate, _context.PlayerRigidbody.velocity.y);
+        _context.PlayerRigidbody.velocity = new Vector2(_context.facingDirection() * Mathf.Abs(_context.PlayerRigidbody.velocity.x), _context.PlayerRigidbody.velocity.y);
     }
 
     public override void ExitState()
@@ -42,6 +47,10 @@ public class PlayerSlideState : PlayerBaseState
         _context.startCorutine(SlideCoolDown());
         _context.PlayerAnimator.SetBool("isSlide", false);
         _context.PlayerAnimator.SetFloat("velocityX", 0f);
+        _context.PlayerBoxCollider.size = _context.NormalColliderSize;
+        _context.PlayerBoxCollider.offset = _context.NormalColliderShift;
+
+        _context.PlayerBoxCollider.sharedMaterial = _context.NormalPhysics;
     }
 
     public override void CheckSwitchState()
@@ -50,9 +59,9 @@ public class PlayerSlideState : PlayerBaseState
         {
             _context.SwitchState(_factory.Idle());
         }
-        else if (_context.PlayerRigidbody.velocity.y < -0.001)
+        else if (_context.PlayerRigidbody.velocity.y >= -0.1)
         {
-            _context.SwitchState(_factory.Fall());
+            //_context.SwitchState(_factory.Fall());
         }
     }
 
