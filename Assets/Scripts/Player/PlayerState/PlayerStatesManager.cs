@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,18 +27,22 @@ public class PlayerStatesManager : MonoBehaviour
     private int _jumpCountsLeft;
     private float _jumpTimeCounter;
     bool _canSlide; // affect by cool down
+    float _wallJumpStiffTimeCounter;
+    int _AttackCount;
+    bool _canAttack; // affect by cool down
 
     [Header("Move")]
     [SerializeField] float _playerMoveSpeed;
+    [SerializeField] float _playerMaxSpeedX;
     [SerializeField] float _playerCrouchMoveSpeed;
     [SerializeField] Vector2 _normalColliderSize;
     [SerializeField] Vector2 _normalColliderShift;
     [SerializeField] bool _showNormalColliderGizmos;
     public PhysicsMaterial2D NormalPhysics;
+    public AudioSource FootStepSound;
 
     [Header("Slide")]
     [SerializeField] float _playerSlideForce;
-    [SerializeField] float _playerSlideCancelRate;
     [SerializeField] float _playerSlideCoolDownTime;
     [SerializeField] Vector2 _slideColliderSize;
     [SerializeField] Vector2 _slideColliderShift;
@@ -63,10 +68,13 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] bool _showCheckDistanceGizmos;
     [SerializeField] float _wallJumpForce;
     [SerializeField] Vector2 _wallJumpDirection;
+    [SerializeField] float _wallJumpStiffTime;
 
     [Header("Attack")]
     [SerializeField] AnimationClip _attackAnimation;
+    [SerializeField] GameObject _weapon;
     [SerializeField] GameObject _attackRange;
+    [SerializeField] float _attackCoolDownTime;
 
     public Animator PlayerAnimator { get => _playerAnimator; set => _playerAnimator = value; }
     public Rigidbody2D PlayerRigidbody { get => _playerRigidbody; set => _playerRigidbody = value; }
@@ -86,7 +94,6 @@ public class PlayerStatesManager : MonoBehaviour
     public float PlayerMoveSpeed { get => _playerMoveSpeed; set => _playerMoveSpeed = value; }
     public float PlayerCrouchMoveSpeed { get => _playerCrouchMoveSpeed; set => _playerCrouchMoveSpeed = value; }
     public float PlayerSlideForce { get => _playerSlideForce; set => _playerSlideForce = value; }
-    public float PlayerSlideCancelRate { get => _playerSlideCancelRate; set => _playerSlideCancelRate = value; }
     public bool CanSlide { get => _canSlide; set => _canSlide = value; }
     public float JumpHeight { get => _jumpHeight; set => _jumpHeight = value; }
     public float PlayerSlideCoolDownTime { get => _playerSlideCoolDownTime; set => _playerSlideCoolDownTime = value; }
@@ -106,6 +113,13 @@ public class PlayerStatesManager : MonoBehaviour
     public Vector2 SlideColliderSize { get => _slideColliderSize; set => _slideColliderSize = value; }
     public Vector2 SlideColliderShift { get => _slideColliderShift; set => _slideColliderShift = value; }
     public GameObject AttackRange { get => _attackRange; set => _attackRange = value; }
+    public float WallJumpStiffTimeCounter { get => _wallJumpStiffTimeCounter; set => _wallJumpStiffTimeCounter = value; }
+    public float WallJumpStiffTime { get => _wallJumpStiffTime; set => _wallJumpStiffTime = value; }
+    public float PlayerMaxSpeedX { get => _playerMaxSpeedX; set => _playerMaxSpeedX = value; }
+    public int AttackCount { get => _AttackCount; set => _AttackCount = value; }
+    public GameObject Weapon { get => _weapon; set => _weapon = value; }
+    public float AttackCoolDownTime { get => _attackCoolDownTime; set => _attackCoolDownTime = value; }
+    public bool CanAttack { get => _canAttack; set => _canAttack = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -130,6 +144,7 @@ public class PlayerStatesManager : MonoBehaviour
         JumpCountsLeft = JumpCounts;
         _wallJumpDirection = _wallJumpDirection.normalized;
         CanSlide = true;
+        _canAttack = true;
     }
 
     private void Update()
@@ -154,6 +169,23 @@ public class PlayerStatesManager : MonoBehaviour
     }
 
     #region useful function
+    public float getAnimationLength(string name)
+    {
+        AnimationClip[] clips = PlayerAnimator.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            if(clip.name == name)
+            {
+                return clip.length;
+            }
+        }
+        return 0;
+    }
+    public void MoveWithLimit() 
+    { 
+        PlayerRigidbody.AddForce(LastMove * PlayerMoveSpeed, ForceMode2D.Force);
+        PlayerRigidbody.velocity = new Vector2(Mathf.Clamp(PlayerRigidbody.velocity.x, -PlayerMaxSpeedX, PlayerMaxSpeedX), PlayerRigidbody.velocity.y);
+    }
     public void startCorutine(IEnumerator routine)
     {
         StartCoroutine(routine);
