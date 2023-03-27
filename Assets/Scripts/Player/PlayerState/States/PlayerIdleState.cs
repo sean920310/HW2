@@ -12,12 +12,14 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState()
     {
         _context.PlayerRigidbody.velocity = new Vector2(0f, _context.PlayerRigidbody.velocity.y);
-        if(_context.CheckOnGround())
+
+        _context.AttackCount = 0;
+
+        if (_context.CheckOnGround())
         {
             _context.PlayerRigidbody.isKinematic = true;
             _context.PlayerAnimator.SetBool("onGround", true);
             _context.PlayerRigidbody.velocity = Vector2.zero;
-
         }
     }
 
@@ -58,7 +60,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             _context.SwitchState(_factory.JumpDown());
         }
-        else if (_context.IsAttackPress)
+        else if (_context.IsAttackPress && _context.CanAttack)
         {
             _context.SwitchState(_factory.Attack());
         }

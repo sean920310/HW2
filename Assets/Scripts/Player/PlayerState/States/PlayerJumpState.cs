@@ -46,7 +46,7 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void FixedUpdateState()
     {
-        _context.PlayerRigidbody.velocity = new Vector2(_context.LastMove.x * _context.PlayerMoveSpeed, _context.PlayerRigidbody.velocity.y);
+        _context.MoveWithLimit();
     }
 
     public override void ExitState()

@@ -7,6 +7,7 @@ public class PlayerWalkState : PlayerBaseState
     {
         _context = context;
         _factory = factory;
+
     }
 
     public override void EnterState()
@@ -16,6 +17,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void UpdateState()
     {
+        // inertia cancel
         if (_context.LastMove != Vector2.zero && _context.LastMove.x < 0f)
             _context.FacingLeft();
         else if (_context.LastMove != Vector2.zero && _context.LastMove.x > 0f)
@@ -25,12 +27,25 @@ public class PlayerWalkState : PlayerBaseState
     }
     public override void FixedUpdateState()
     {
-        _context.PlayerRigidbody.velocity = new Vector2(_context.LastMove.x * _context.PlayerMoveSpeed, _context.PlayerRigidbody.velocity.y);
+        if (_context.PlayerRigidbody.velocity.x > 0 && _context.LastMove.x < 0 ||
+            _context.PlayerRigidbody.velocity.x < 0 && _context.LastMove.x > 0)
+            _context.PlayerRigidbody.velocity = new Vector2(0, _context.PlayerRigidbody.velocity.y);
+
+        _context.MoveWithLimit();
+
+
+        if(!_context.FootStepSound.isPlaying)
+            _context.FootStepSound.Play();
+
+        //_context.PlayerRigidbody.velocity = new Vector2(_context.LastMove.x * _context.PlayerMoveSpeed, _context.PlayerRigidbody.velocity.y);
     }
 
     public override void ExitState()
     {
         _context.PlayerAnimator.SetBool("isMoving", false);
+
+        if (_context.FootStepSound.isPlaying)
+            _context.FootStepSound.Pause();
     }
 
     public override void CheckSwitchState()

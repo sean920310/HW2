@@ -14,6 +14,7 @@ public class PlayerWallJump : PlayerBaseState
         _context.JumpCountsLeft = 1;
         _context.IsJumpPress = false;
         _context.JumpTimeCounter = 0;
+        _context.WallJumpStiffTimeCounter = 0;
 
         // set animation veriable
         _context.PlayerAnimator.SetBool("onGround", false);
@@ -32,6 +33,7 @@ public class PlayerWallJump : PlayerBaseState
     public override void UpdateState()
     {
         _context.JumpTimeCounter += Time.deltaTime;
+        _context.WallJumpStiffTimeCounter += Time.deltaTime;
 
         if ((_context.IsJumpRelease || _context.JumpTimeCounter >= _context.JumpTime) && _context.PlayerRigidbody.velocity.y > 0)
             _context.PlayerRigidbody.AddForce(Vector2.down * _context.JumpCancelRate);
@@ -42,18 +44,22 @@ public class PlayerWallJump : PlayerBaseState
         _context.PlayerAnimator.SetFloat("velocityY", _context.PlayerRigidbody.velocity.y);
 
         // air control
-        if (_context.LastMove != Vector2.zero && _context.LastMove.x < 0f)
-            _context.FacingLeft();
-        else if (_context.LastMove != Vector2.zero && _context.LastMove.x > 0f)
-            _context.FacingRight();
+        if (_context.WallJumpStiffTimeCounter >= _context.WallJumpStiffTime)
+        {
+            if (_context.LastMove != Vector2.zero && _context.LastMove.x < 0f)
+                _context.FacingLeft();
+            else if (_context.LastMove != Vector2.zero && _context.LastMove.x > 0f)
+                _context.FacingRight();
+
+        }
 
         CheckSwitchState();
     }
 
     public override void FixedUpdateState()
     {
-        if(Mathf.Abs(_context.LastMove.x) > 0f)
-            _context.PlayerRigidbody.velocity = new Vector2(_context.LastMove.x * _context.PlayerMoveSpeed, _context.PlayerRigidbody.velocity.y);
+        if(_context.WallJumpStiffTimeCounter >= _context.WallJumpStiffTime && Mathf.Abs(_context.LastMove.x) > 0f)
+            _context.MoveWithLimit();
     }
 
     public override void ExitState()
