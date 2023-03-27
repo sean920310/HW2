@@ -60,16 +60,18 @@ public class PlayerJumpState : PlayerBaseState
         {
             _context.SwitchState(_factory.Fall());
         }
-        else if (_context.CheckIsTouchingWall() && !_context.CheckOnGround() && _context.PlayerRigidbody.velocity.y < 0f)
-        {
-            _context.SwitchState(_factory.WallSlide());
-        }
         else if (_context.IsJumpPress && _context.canJump())
         {
             _context.SwitchState(_factory.Jump());
         }
+        else if (_context.CheckIsTouchingWall() && !_context.CheckOnGround() && _context.PlayerRigidbody.velocity.y < 0f)
+        {
+            _context.JumpCountsLeft = _context.JumpCounts;
+            _context.SwitchState(_factory.WallSlide());
+        }
         else if (_context.IsAttackPress && _context.CanAttack)
         {
+            _context.JumpCountsLeft = _context.JumpCounts;
             _context.SwitchState(_factory.Attack());
         }
     }
