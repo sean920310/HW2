@@ -10,6 +10,7 @@ public class PlayerStatesManager : MonoBehaviour
     Animator _playerAnimator;
     Transform _playerTransform;
     Rigidbody2D _playerRigidbody;
+    BoxCollider2D _playerBoxCollider;
 
     PlayerBaseState _currentState = null;
     PlayerStateFactory _factory = null;
@@ -29,11 +30,19 @@ public class PlayerStatesManager : MonoBehaviour
     [Header("Move")]
     [SerializeField] float _playerMoveSpeed;
     [SerializeField] float _playerCrouchMoveSpeed;
+    [SerializeField] Vector2 _normalColliderSize;
+    [SerializeField] Vector2 _normalColliderShift;
+    [SerializeField] bool _showNormalColliderGizmos;
+    public PhysicsMaterial2D NormalPhysics;
 
     [Header("Slide")]
     [SerializeField] float _playerSlideForce;
     [SerializeField] float _playerSlideCancelRate;
     [SerializeField] float _playerSlideCoolDownTime;
+    [SerializeField] Vector2 _slideColliderSize;
+    [SerializeField] Vector2 _slideColliderShift;
+    [SerializeField] bool _showSlideColliderGizmos;
+    public PhysicsMaterial2D SlidePhysics;
 
     [Header("Jump")]
     [SerializeField] float _jumpHeight;
@@ -44,22 +53,26 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] float _jumpCancelRate;
     [SerializeField] Vector2 _groundCheckBoxSize;
     [SerializeField] Vector2 _groundCheckBoxShift;
+    [SerializeField] bool _showGroundCheckBoxGizmos;
     [SerializeField] LayerMask _whatIsGround;
     [SerializeField] LayerMask _whatIsOneWayPlatform;
 
     [Header("Wall Slide and Wall Jump")]
     [SerializeField] float _wallSlideSpeed;
     [SerializeField] float _wallCheckDistance;
+    [SerializeField] bool _showCheckDistanceGizmos;
     [SerializeField] float _wallJumpForce;
     [SerializeField] Vector2 _wallJumpDirection;
 
     [Header("Attack")]
     [SerializeField] AnimationClip _attackAnimation;
+    [SerializeField] GameObject _attackRange;
 
     public Animator PlayerAnimator { get => _playerAnimator; set => _playerAnimator = value; }
     public Rigidbody2D PlayerRigidbody { get => _playerRigidbody; set => _playerRigidbody = value; }
     public Transform PlayerTransform { get => _playerTransform; set => _playerTransform = value; }
     public PlayerBaseState CurrentState { get => _currentState; set => _currentState = value; }
+    public BoxCollider2D PlayerBoxCollider { get => _playerBoxCollider; set => _playerBoxCollider = value; }
     public bool IsJumpPress { get => _isJumpPress; set => _isJumpPress = value; }
     public bool IsJumpRelease { get => _isJumpRelease; set => _isJumpRelease = value; }
     public bool IsMovePress { get => _isMovePress; set => _isMovePress = value; }
@@ -88,6 +101,11 @@ public class PlayerStatesManager : MonoBehaviour
     public float WallJumpForce { get => _wallJumpForce; set => _wallJumpForce = value; }
     public Vector2 WallJumpDirection { get => _wallJumpDirection; set => _wallJumpDirection = value; }
     public AnimationClip AttackAnimation { get => _attackAnimation; set => _attackAnimation = value; }
+    public Vector2 NormalColliderSize { get => _normalColliderSize; set => _normalColliderSize = value; }
+    public Vector2 NormalColliderShift { get => _normalColliderShift; set => _normalColliderShift = value; }
+    public Vector2 SlideColliderSize { get => _slideColliderSize; set => _slideColliderSize = value; }
+    public Vector2 SlideColliderShift { get => _slideColliderShift; set => _slideColliderShift = value; }
+    public GameObject AttackRange { get => _attackRange; set => _attackRange = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -101,6 +119,7 @@ public class PlayerStatesManager : MonoBehaviour
         _playerAnimator = GetComponent<Animator>();
         PlayerTransform = GetComponent<Transform>();
         _playerRigidbody = GetComponent<Rigidbody2D>();
+        PlayerBoxCollider = GetComponent<BoxCollider2D>();
 
         // state setup
         _factory = new PlayerStateFactory(this);
@@ -162,10 +181,23 @@ public class PlayerStatesManager : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.7f);
-        Gizmos.DrawCube(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, 0.0f), _groundCheckBoxSize);
-        Gizmos.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + _wallCheckDistance, transform.position.y, transform.position.z));
+        Gizmos.color = new Color(1.0f, 1.0f, 1.0f, 0.7f);
+        if (_showGroundCheckBoxGizmos)
+        {
+            Gizmos.DrawCube(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, 0.0f), _groundCheckBoxSize);
+        }
+        if (_showCheckDistanceGizmos)
+        {
+            Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + _wallCheckDistance, transform.position.y, transform.position.z));
+        }
+        if (_showNormalColliderGizmos)
+        {
+            Gizmos.DrawCube(transform.position + new Vector3(NormalColliderShift.x, NormalColliderShift.y, 0.0f), NormalColliderSize * transform.localScale);
+        }
+        if (_showSlideColliderGizmos)
+        {
+            Gizmos.DrawCube(transform.position + new Vector3(SlideColliderShift.x, SlideColliderShift.y, 0.0f), SlideColliderSize * transform.localScale);
+        }
     }
 
     public void FacingRight()

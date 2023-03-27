@@ -256,9 +256,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerMoveSpeed: 6.5
   _playerCrouchMoveSpeed: 0
+  _normalColliderSize: {x: 0, y: 0}
+  _normalColliderShift: {x: 0, y: 0}
+  _showNormalColliderGizmos: 0
+  NormalPhysics: {fileID: 0}
   _playerSlideForce: 10
   _playerSlideCancelRate: 0.93
   _playerSlideCoolDownTime: 1
+  _slideColliderSize: {x: 0, y: 0}
+  _slideColliderShift: {x: 0, y: 0}
+  _showSlideColliderGizmos: 0
+  SlidePhysics: {fileID: 0}
   _jumpHeight: 2.5
   _normalGravityScale: 2.5
   _fallGravityScale: 3.5
@@ -267,6 +275,7 @@ MonoBehaviour:
   _jumpCancelRate: 30
   _groundCheckBoxSize: {x: 0.55, y: 1.02}
   _groundCheckBoxShift: {x: 0, y: 0}
+  _showGroundCheckBoxGizmos: 0
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -275,9 +284,11 @@ MonoBehaviour:
     m_Bits: 0
   _wallSlideSpeed: 0.5
   _wallCheckDistance: 0.3
+  _showCheckDistanceGizmos: 0
   _wallJumpForce: 15
   _wallJumpDirection: {x: 1, y: 2}
   _attackAnimation: {fileID: 0}
+  _attackRange: {fileID: 0}
   CurrentStateString: 
 --- !u!198 &2083524339988350576
 ParticleSystem:
@@ -5068,13 +5079,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7562388674535872783}
   - component: {fileID: 6435040971891696391}
+  - component: {fileID: 1559824770527308671}
   m_Layer: 8
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7562388674535872783
 Transform:
   m_ObjectHideFlags: 0
@@ -5097,7 +5109,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6779043614674885486}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -5120,3 +5132,15 @@ PolygonCollider2D:
       - {x: 0.90482515, y: -0.13055778}
       - {x: 0.9113582, y: -0.99689806}
       - {x: 2.4123533, y: -0.1919989}
+--- !u!114 &1559824770527308671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6779043614674885486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78e63eb5d5da364983bc370e4074131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

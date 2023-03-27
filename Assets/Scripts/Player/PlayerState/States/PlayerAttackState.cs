@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerAttackState : PlayerBaseState
 {
@@ -20,6 +21,7 @@ public class PlayerAttackState : PlayerBaseState
             _context.PlayerRigidbody.isKinematic = true;
         }
         _context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
+        _context.startCorutine(AttackTime());
     }
 
     public override void UpdateState()
@@ -42,6 +44,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         _context.PlayerRigidbody.isKinematic = false;
         _context.IsAttackPress = false;
+        _context.AttackRange.SetActive(false);
     }
 
     public override void CheckSwitchState()
@@ -49,4 +52,11 @@ public class PlayerAttackState : PlayerBaseState
         if(attackCounter > _context.AttackAnimation.length)
             _context.SwitchState(_factory.Idle());
     }
+
+    IEnumerator AttackTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        _context.AttackRange.SetActive(true);
+    }
+
 }
