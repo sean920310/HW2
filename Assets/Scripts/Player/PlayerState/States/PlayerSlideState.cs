@@ -63,6 +63,10 @@ public class PlayerSlideState : PlayerBaseState
         {
             _context.SwitchState(_factory.Attack());
         }
+        else if (_context.IsBlockingPress)
+        {
+            _context.SwitchState(_factory.Blocking());
+        }
     }
 
     IEnumerator SlideCoolDown()

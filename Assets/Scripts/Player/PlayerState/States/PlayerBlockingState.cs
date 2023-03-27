@@ -12,6 +12,8 @@ public class PlayerBlockingState : PlayerBaseState
     public override void EnterState()
     {
         _context.PlayerAnimator.SetBool("onShield", true);
+
+        _context.PlayerBoxCollider.sharedMaterial = _context.SlidePhysics;
     }
 
     public override void UpdateState()
@@ -32,6 +34,7 @@ public class PlayerBlockingState : PlayerBaseState
     public override void ExitState()
     {
         _context.PlayerAnimator.SetBool("onShield", false);
+        _context.PlayerBoxCollider.sharedMaterial = _context.NormalPhysics;
     }
 
     public override void CheckSwitchState()

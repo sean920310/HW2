@@ -20,6 +20,7 @@ public class PlayerIdleState : PlayerBaseState
             _context.PlayerRigidbody.isKinematic = true;
             _context.PlayerAnimator.SetBool("onGround", true);
             _context.PlayerRigidbody.velocity = Vector2.zero;
+            _context.JumpCountsLeft = _context.JumpCounts;
         }
     }
 

@@ -71,6 +71,14 @@ public class PlayerAttackState : PlayerBaseState
             {
                 _context.SwitchState(_factory.Attack());
             }
+            else if (_context.IsBlockingPress)
+            {
+                _context.Weapon.GetComponent<Animator>().SetBool("isAttack", false);
+                _context.PlayerAnimator.SetBool("isAttack", false);
+                _context.AttackCount = 0;
+                _context.startCorutine(AttackCoolDown());
+                _context.SwitchState(_factory.Blocking());
+            }
             else
             {
                 _context.Weapon.GetComponent<Animator>().SetBool("isAttack", false);

@@ -16958,11 +16958,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _playerMoveSpeed
-      value: 40
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _fallGravityScale
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: _isAirSlideEnable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _playerSlideForce
@@ -16982,7 +16986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _attackCoolDownTime
-      value: 0.1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _slideColliderSize.x
@@ -17038,7 +17042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _showSlideColliderGizmos
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: _showGroundCheckBoxGizmos

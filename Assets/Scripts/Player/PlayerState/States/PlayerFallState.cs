@@ -44,16 +44,13 @@ public class PlayerFallState : PlayerBaseState
     {
         if (_context.CheckOnGround() && _context.gameObject.layer != 7)
         {
-            _context.JumpCountsLeft = _context.JumpCounts;
+            _context.JumpCountsLeft = _context.JumpCounts; // Jump Counts Reloading
             _context.SwitchState(_factory.Idle());
         }
         else if (_context.CheckIsTouchingWall() && !_context.CheckOnGround() && _context.PlayerRigidbody.velocity.y < 0f)
         {
+            _context.JumpCountsLeft = _context.JumpCounts;
             _context.SwitchState(_factory.WallSlide());
-        }
-        else if (_context.IsJumpPress && _context.canJump())
-        {
-            _context.SwitchState(_factory.Jump());
         }
         else if (_context.IsJumpDownPress && _context.CheckOnOneWayPlatform())
         {
@@ -61,7 +58,21 @@ public class PlayerFallState : PlayerBaseState
         }
         else if (_context.IsAttackPress && _context.CanAttack)
         {
+            _context.JumpCountsLeft = _context.JumpCounts;
             _context.SwitchState(_factory.Attack());
+        }
+        else if (_context.IsBlockingPress)
+        {
+            _context.JumpCountsLeft = _context.JumpCounts;
+            _context.SwitchState(_factory.Blocking());
+        }
+        else if (_context.IsJumpPress && _context.canJump())
+        {
+            _context.SwitchState(_factory.Jump()); // Jump could not reload Jump Counts
+        }
+        else if (_context.IsCrouchPress && _context.CanSlide && _context.IsAirSlideEnable)
+        {
+            _context.SwitchState(_factory.Slide());
         }
     }
 }

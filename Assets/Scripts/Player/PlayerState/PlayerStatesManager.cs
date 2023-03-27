@@ -45,6 +45,7 @@ public class PlayerStatesManager : MonoBehaviour
     [Header("Slide")]
     [SerializeField] float _playerSlideForce;
     [SerializeField] float _playerSlideCoolDownTime;
+    [SerializeField] bool _isAirSlideEnable;
     [SerializeField] Vector2 _slideColliderSize;
     [SerializeField] Vector2 _slideColliderShift;
     [SerializeField] bool _showSlideColliderGizmos;
@@ -72,7 +73,6 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] float _wallJumpStiffTime;
 
     [Header("Attack")]
-    [SerializeField] AnimationClip _attackAnimation;
     [SerializeField] GameObject _weapon;
     [SerializeField] GameObject _attackRange;
     [SerializeField] float _attackCoolDownTime;
@@ -108,7 +108,6 @@ public class PlayerStatesManager : MonoBehaviour
     public float WallSlideSpeed { get => _wallSlideSpeed; set => _wallSlideSpeed = value; }
     public float WallJumpForce { get => _wallJumpForce; set => _wallJumpForce = value; }
     public Vector2 WallJumpDirection { get => _wallJumpDirection; set => _wallJumpDirection = value; }
-    public AnimationClip AttackAnimation { get => _attackAnimation; set => _attackAnimation = value; }
     public Vector2 NormalColliderSize { get => _normalColliderSize; set => _normalColliderSize = value; }
     public Vector2 NormalColliderShift { get => _normalColliderShift; set => _normalColliderShift = value; }
     public Vector2 SlideColliderSize { get => _slideColliderSize; set => _slideColliderSize = value; }
@@ -122,6 +121,7 @@ public class PlayerStatesManager : MonoBehaviour
     public float AttackCoolDownTime { get => _attackCoolDownTime; set => _attackCoolDownTime = value; }
     public bool CanAttack { get => _canAttack; set => _canAttack = value; }
     public bool IsBlockingPress { get => _isBlockingPress; set => _isBlockingPress = value; }
+    public bool IsAirSlideEnable { get => _isAirSlideEnable; set => _isAirSlideEnable = value; }
 
     #region readonly inspector
     [ReadOnly]
