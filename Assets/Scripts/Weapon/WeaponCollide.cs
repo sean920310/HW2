@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponCollide : MonoBehaviour
 {
     [SerializeField] LayerMask enemyLayer;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if ((enemyLayer & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)

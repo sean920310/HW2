@@ -45,6 +45,7 @@ public class PlayerFallState : PlayerBaseState
         if (_context.CheckOnGround() && _context.gameObject.layer != 7)
         {
             _context.JumpCountsLeft = _context.JumpCounts; // Jump Counts Reloading
+            _context.OnGroundParticle.Play();
             _context.SwitchState(_factory.Idle());
         }
         else if (_context.CheckIsTouchingWall() && !_context.CheckOnGround() && _context.PlayerRigidbody.velocity.y < 0f)

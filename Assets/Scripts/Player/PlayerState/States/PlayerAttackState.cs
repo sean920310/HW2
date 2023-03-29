@@ -3,9 +3,12 @@ using System.Collections;
 
 public class PlayerAttackState : PlayerBaseState
 {
+    bool normalExit = false;
+
     Animation animate;
     float attackCounter;
     float attackTime;
+
     public PlayerAttackState(PlayerStatesManager context, PlayerStateFactory factory)
         : base(context, factory)
     {
@@ -18,11 +21,10 @@ public class PlayerAttackState : PlayerBaseState
         _context.CanAttack = false;
         if (_context.CheckOnGround())
         {
-            _context.PlayerRigidbody.isKinematic = true;
+            _context.PlayerRigidbody.isKinematic = false;
         }
-        //_context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
-        _context.startCorutine(AttackTime());
 
+        // Set Weapon and Player animation
         _context.Weapon.SetActive(true);
         _context.Weapon.GetComponent<Animator>().SetInteger("AttackCount", _context.AttackCount);
         _context.PlayerAnimator.SetInteger("AttackCount", _context.AttackCount);
@@ -32,8 +34,10 @@ public class PlayerAttackState : PlayerBaseState
 
         _context.AttackCount++;
         _context.IsAttackPress = false;
+        attackTime = _context.getAnimationLength("PlayerAttack" + _context.AttackCount.ToString()); // set attack duration by getAnimationLength()
         attackCounter = 0f;
-        attackTime = _context.getAnimationLength("PlayerAttack" + _context.AttackCount.ToString());
+        //_context.applyAttackForce();
+        _context.PlayerBoxCollider.sharedMaterial = _context.AttackingPhysics;
     }
 
     public override void UpdateState()
@@ -42,6 +46,11 @@ public class PlayerAttackState : PlayerBaseState
         {
             _context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
         }
+
+        if (_context.LastMove != Vector2.zero && _context.LastMove.x < 0f)
+            _context.FacingLeft();
+        else if (_context.LastMove != Vector2.zero && _context.LastMove.x > 0f)
+            _context.FacingRight();
 
         attackCounter += Time.deltaTime;
         CheckSwitchState();
@@ -55,9 +64,20 @@ public class PlayerAttackState : PlayerBaseState
     public override void ExitState()
     {
         _context.PlayerRigidbody.isKinematic = false;
-        _context.AttackRange.SetActive(false);
         _context.Weapon.SetActive(false);
         _context.IsAttackPress = false;
+        _context.PlayerBoxCollider.sharedMaterial = _context.NormalPhysics;
+
+        _context.PlayerAnimator.SetBool("isAttack", false);
+        _context.Weapon.GetComponent<Animator>().SetBool("isAttack", false);
+
+
+
+        if (normalExit == false) // unusual exit like Hurt() state will need this to reset state. 
+        {
+            _context.AttackCount = 0;
+            _context.startCorutine(AttackCoolDown());
+        }
     }
 
     public override void CheckSwitchState()
@@ -65,41 +85,32 @@ public class PlayerAttackState : PlayerBaseState
 
         if (attackTime < attackCounter)
         {
-            _context.Weapon.GetComponent<Animator>().SetBool("isAttack", false);
-            _context.PlayerAnimator.SetBool("isAttack", false);
             if (_context.IsAttackPress && _context.AttackCount < 3)
             {
+                normalExit = true;
                 _context.SwitchState(_factory.Attack());
             }
             else if (_context.IsBlockingPress)
             {
-                _context.Weapon.GetComponent<Animator>().SetBool("isAttack", false);
-                _context.PlayerAnimator.SetBool("isAttack", false);
-                _context.AttackCount = 0;
+                normalExit = true;
+                if (_context.AttackCount == 1 || _context.AttackCount == 3) // Critical Hit Reservation by not reset AttackCount
+                    _context.AttackCount = 0;
+                else
+                    _context.startCorutine(CritReserve());
                 _context.startCorutine(AttackCoolDown());
                 _context.SwitchState(_factory.Blocking());
             }
             else
             {
-                _context.Weapon.GetComponent<Animator>().SetBool("isAttack", false);
-                _context.PlayerAnimator.SetBool("isAttack", false);
-                _context.AttackCount = 0;
+                normalExit = true;
+                if (_context.AttackCount == 1 || _context.AttackCount == 3) // Critical Hit Reservation by not reset AttackCount
+                    _context.AttackCount = 0;
+                else
+                    _context.startCorutine(CritReserve());
                 _context.startCorutine(AttackCoolDown());
                 _context.SwitchState(_factory.Idle());
             }
         }
-    }
-
-    IEnumerator AttackTime()
-    {
-        if(_context.AttackCount == 1)
-            yield return new WaitForSeconds(attackTime * 0.5f);
-        else if (_context.AttackCount == 2)
-            yield return new WaitForSeconds(attackTime * 0.2f);
-        else
-            yield return new WaitForSeconds(attackTime * 0.5f);
-
-        _context.AttackRange.SetActive(true);
     }
 
     IEnumerator AttackCoolDown()
@@ -107,5 +118,12 @@ public class PlayerAttackState : PlayerBaseState
         yield return new WaitForSeconds(_context.AttackCoolDownTime);
 
         _context.CanAttack = true;
+    }
+    IEnumerator CritReserve() // reset AttackCount 
+    {
+        yield return new WaitForSeconds(_context.CritReserveTime);
+
+        if(_context.AttackCount == 2)
+            _context.AttackCount = 0;
     }
 }

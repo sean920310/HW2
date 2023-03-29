@@ -51,4 +51,8 @@ public class PlayerStateFactory
     {
         return new PlayerBlockingState(_context, this);
     }
+    public PlayerBaseState Hurt()
+    {
+        return new PlayerHurtState(_context, this);
+    }
 }
