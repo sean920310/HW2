@@ -11,6 +11,8 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void EnterState()
     {
+        _context.JumpParticle.Play();
+
         _context.JumpCountsLeft--;
         _context.IsJumpPress = false;
         _context.PlayerRigidbody.velocity = new Vector2(_context.PlayerRigidbody.velocity.x, 0);

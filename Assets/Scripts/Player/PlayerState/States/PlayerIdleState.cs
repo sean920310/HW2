@@ -13,7 +13,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         _context.PlayerRigidbody.velocity = new Vector2(0f, _context.PlayerRigidbody.velocity.y);
 
-        _context.AttackCount = 0;
+        //_context.AttackCount = 0;
 
         if (_context.CheckOnGround())
         {
