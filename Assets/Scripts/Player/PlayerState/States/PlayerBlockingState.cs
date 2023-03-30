@@ -13,7 +13,7 @@ public class PlayerBlockingState : PlayerBaseState
     {
         _context.PlayerAnimator.SetBool("onShield", true);
 
-        _context.PlayerBoxCollider.sharedMaterial = _context.SlidePhysics;
+        _context.PlayerBoxCollider.sharedMaterial = _context.BlockingPhysics;
     }
 
     public override void UpdateState()

@@ -63,6 +63,8 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] bool _showGroundCheckBoxGizmos;
     [SerializeField] LayerMask _whatIsGround;
     [SerializeField] LayerMask _whatIsOneWayPlatform;
+    [SerializeField] ParticleSystem _onGroundParticle;
+    [SerializeField] ParticleSystem _jumpParticle;
 
     [Header("Wall Slide and Wall Jump")]
     [SerializeField] float _wallSlideSpeed;
@@ -73,9 +75,14 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] float _wallJumpStiffTime;
 
     [Header("Attack")]
+    public PhysicsMaterial2D BlockingPhysics;
     [SerializeField] GameObject _weapon;
-    [SerializeField] GameObject _attackRange;
     [SerializeField] float _attackCoolDownTime;
+    [SerializeField] Vector2 _attackMovementDirection;
+    [SerializeField] float _attackForce;
+    [SerializeField] float _airAttackForceMultiplier;
+    [SerializeField] float _critReserveTime;
+    public PhysicsMaterial2D _attackingPhysics;
 
     public Animator PlayerAnimator { get => _playerAnimator; set => _playerAnimator = value; }
     public Rigidbody2D PlayerRigidbody { get => _playerRigidbody; set => _playerRigidbody = value; }
@@ -112,7 +119,6 @@ public class PlayerStatesManager : MonoBehaviour
     public Vector2 NormalColliderShift { get => _normalColliderShift; set => _normalColliderShift = value; }
     public Vector2 SlideColliderSize { get => _slideColliderSize; set => _slideColliderSize = value; }
     public Vector2 SlideColliderShift { get => _slideColliderShift; set => _slideColliderShift = value; }
-    public GameObject AttackRange { get => _attackRange; set => _attackRange = value; }
     public float WallJumpStiffTimeCounter { get => _wallJumpStiffTimeCounter; set => _wallJumpStiffTimeCounter = value; }
     public float WallJumpStiffTime { get => _wallJumpStiffTime; set => _wallJumpStiffTime = value; }
     public float PlayerMaxSpeedX { get => _playerMaxSpeedX; set => _playerMaxSpeedX = value; }
@@ -122,6 +128,14 @@ public class PlayerStatesManager : MonoBehaviour
     public bool CanAttack { get => _canAttack; set => _canAttack = value; }
     public bool IsBlockingPress { get => _isBlockingPress; set => _isBlockingPress = value; }
     public bool IsAirSlideEnable { get => _isAirSlideEnable; set => _isAirSlideEnable = value; }
+    public ParticleSystem OnGroundParticle { get => _onGroundParticle; set => _onGroundParticle = value; }
+    public ParticleSystem JumpParticle { get => _jumpParticle; set => _jumpParticle = value; }
+    public Vector2 AttackMovementDirection { get => _attackMovementDirection; set => _attackMovementDirection = value; }
+    public float AttackForce { get => _attackForce; set => _attackForce = value; }
+    public PhysicsMaterial2D AttackingPhysics { get => _attackingPhysics; set => _attackingPhysics = value; }
+    public float AirAttackForceMultiplier { get => _airAttackForceMultiplier; set => _airAttackForceMultiplier = value; }
+    public float CritReserveTime { get => _critReserveTime; set => _critReserveTime = value; }
+    public PlayerStateFactory Factory { get => _factory; set => _factory = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -138,8 +152,8 @@ public class PlayerStatesManager : MonoBehaviour
         PlayerBoxCollider = GetComponent<BoxCollider2D>();
 
         // state setup
-        _factory = new PlayerStateFactory(this);
-        _currentState = _factory.Idle(); // Initial State
+        Factory = new PlayerStateFactory(this);
+        _currentState = Factory.Idle(); // Initial State
         _currentState.EnterState();
 
         // variable initialize
@@ -155,10 +169,10 @@ public class PlayerStatesManager : MonoBehaviour
 
         CurrentStateString = _currentState.ToString();
     }
+
     private void FixedUpdate()
     {
         _currentState.FixedUpdateState();
-
     }
 
     public void SwitchState(PlayerBaseState newState)
@@ -171,6 +185,15 @@ public class PlayerStatesManager : MonoBehaviour
     }
 
     #region useful function
+    public void applyAttackForce()
+    {
+        if(CheckOnGround())
+            _playerRigidbody.AddForce(AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
+        else
+            _playerRigidbody.AddForce(AirAttackForceMultiplier * AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
+
+    }
+
     public float getAnimationLength(string name)
     {
         AnimationClip[] clips = PlayerAnimator.runtimeAnimatorController.animationClips;
