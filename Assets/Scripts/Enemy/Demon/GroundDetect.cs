@@ -12,9 +12,6 @@ public class GroundDetect : MonoBehaviour
     [Header("Result")]
     [SerializeField] public bool outOfRange; 
 
-    [Header("Event")]
-    public UnityEvent<GameObject> OnNotDetected;
-
     [Header("Gizmos")]
     public bool showGizmos = false;
     public Color gizmosColor;
@@ -23,13 +20,7 @@ public class GroundDetect : MonoBehaviour
     void Update()
     {
         Collider2D ground = Physics2D.Raycast(transform.position, -transform.up, detectRange, whatIsGround).collider;
-        if (ground == null)
-        {
-            OnNotDetected?.Invoke(gameObject);
-            outOfRange = true;
-        }
-        else
-            outOfRange = false;
+        outOfRange = (ground == null);
     }
 
     private void OnDrawGizmosSelected()

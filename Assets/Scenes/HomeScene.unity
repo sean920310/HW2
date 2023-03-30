@@ -16744,21 +16744,6 @@ MonoBehaviour:
     m_Bits: 448
   target: {x: 0, y: 0, z: 0}
   detected: 0
-  OnAttackDetected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1588340713}
-        m_TargetAssemblyTypeName: DemonBehavor, Assembly-CSharp
-        m_MethodName: Attack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   showGizmos: 0
   gizmosColor: {r: 0.7735849, g: 0.115088664, b: 0, a: 1}
 --- !u!1 &212141512
@@ -28872,21 +28857,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   outOfRange: 0
-  OnNotDetected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1588340713}
-        m_TargetAssemblyTypeName: DemonBehavor, Assembly-CSharp
-        m_MethodName: TurnAtEdge
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   showGizmos: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &763785493
@@ -32345,9 +32315,6 @@ MonoBehaviour:
     m_Bits: 448
   target: {x: 0, y: 0, z: 0}
   detected: 0
-  OnPlayerDetected:
-    m_PersistentCalls:
-      m_Calls: []
   showGizmos: 1
   gizmosColor: {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
 --- !u!1 &899915671
@@ -32595,21 +32562,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   outOfRange: 0
-  OnNotDetected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1588340713}
-        m_TargetAssemblyTypeName: DemonBehavor, Assembly-CSharp
-        m_MethodName: TurnAtEdge
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   showGizmos: 0
   gizmosColor: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
 --- !u!1 &975508703
@@ -43693,6 +43645,7 @@ GameObject:
   - component: {fileID: 1588340715}
   - component: {fileID: 1588340714}
   - component: {fileID: 1588340713}
+  - component: {fileID: 1588340716}
   m_Layer: 9
   m_Name: Demon
   m_TagString: Untagged
@@ -43799,7 +43752,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588340709}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0500d09a2148f2144b5cd56701ab0939, type: 3}
   m_Name: 
@@ -43854,6 +43807,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1588340716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588340709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914343a28372318488ccb5dabc71c6d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceRightAtRotationZero: 0
+  _movingSpeed: 2
+  _attackDelay: 0
+  _attackCDTime: 3
+  _playerDetected: 0
+  _attackDetected: 0
+  _wallDetected: 0
+  _groundDetected: 0
+  CurrentStateString: 
 --- !u!1 &1747035165
 GameObject:
   m_ObjectHideFlags: 0

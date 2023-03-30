@@ -12,9 +12,6 @@ public class WallDetect : MonoBehaviour
     [Header("Result")]
     [SerializeField] public bool outOfRange;
 
-    [Header("Event")]
-    public UnityEvent<GameObject> OnNotDetected;
-
     [Header("Gizmos")]
     public bool showGizmos = false;
     public Color gizmosColor;
@@ -23,13 +20,7 @@ public class WallDetect : MonoBehaviour
     void Update()
     {
         Collider2D wall = Physics2D.Raycast(transform.position, -transform.right, detectRange, whatIsGround).collider;
-        if (wall != null)
-        {
-            OnNotDetected?.Invoke(wall.gameObject);
-            outOfRange = true;
-        }
-        else
-            outOfRange = false;
+        outOfRange = (wall != null);
     }
 
     private void OnDrawGizmosSelected()
