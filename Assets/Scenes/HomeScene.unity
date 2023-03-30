@@ -17035,6 +17035,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: _whatIsFloor.m_Bits
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
+      propertyPath: _whatIsGround.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -33095,7 +33103,7 @@ PlatformEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 374
+    m_Bits: 886
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
@@ -44961,7 +44969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceRightAtRotationZero: 0
   _movingSpeed: 2
-  _attackDelay: 0
+  _attackDelay: 0.5
   _attackCDTime: 3
   _playerDetected: 0
   _attackDetected: 0

@@ -64,6 +64,7 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] Vector2 _groundCheckBoxSize;
     [SerializeField] Vector2 _groundCheckBoxShift;
     [SerializeField] bool _showGroundCheckBoxGizmos;
+    [SerializeField] LayerMask _whatIsFloor;
     [SerializeField] LayerMask _whatIsGround;
     [SerializeField] LayerMask _whatIsOneWayPlatform;
     [SerializeField] ParticleSystem _onGroundParticle;
@@ -113,6 +114,7 @@ public class PlayerStatesManager : MonoBehaviour
     public int JumpCounts { get => _jumpCounts; set => _jumpCounts = value; }
     public float JumpTime { get => _jumpTime; set => _jumpTime = value; }
     public float JumpCancelRate { get => _jumpCancelRate; set => _jumpCancelRate = value; }
+    public LayerMask WhatIsFloor { get => _whatIsFloor; set => _whatIsFloor = value; }
     public LayerMask WhatIsGround { get => _whatIsGround; set => _whatIsGround = value; }
     public LayerMask WhatIsOneWayPlatform { get => _whatIsOneWayPlatform; set => _whatIsOneWayPlatform = value; }
     public float WallSlideSpeed { get => _wallSlideSpeed; set => _wallSlideSpeed = value; }
@@ -192,7 +194,7 @@ public class PlayerStatesManager : MonoBehaviour
     #region useful function
     public void applyAttackForce()
     {
-        if (CheckOnGround())
+        if (CheckOnFloor())
             _playerRigidbody.AddForce(AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
         else
             _playerRigidbody.AddForce(AirAttackForceMultiplier * AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
@@ -224,6 +226,10 @@ public class PlayerStatesManager : MonoBehaviour
     {
         return transform.rotation.eulerAngles.y == 0 ? 1f : -1f;
     }
+    public bool CheckOnFloor()
+    {
+        return Physics2D.OverlapBox(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, transform.position.z), _groundCheckBoxSize, 0, WhatIsFloor);
+    }
     public bool CheckOnGround()
     {
         return Physics2D.OverlapBox(transform.position + new Vector3(_groundCheckBoxShift.x, _groundCheckBoxShift.y, transform.position.z), _groundCheckBoxSize, 0, WhatIsGround);
@@ -238,7 +244,7 @@ public class PlayerStatesManager : MonoBehaviour
     }
     public bool canJump()
     {
-        return CheckOnGround() || (JumpCountsLeft > 0);
+        return CheckOnFloor() || (JumpCountsLeft > 0);
     }
 
     void OnDrawGizmosSelected()

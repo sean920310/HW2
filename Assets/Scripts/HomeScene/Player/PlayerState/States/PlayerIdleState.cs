@@ -15,7 +15,7 @@ public class PlayerIdleState : PlayerBaseState
 
         //_context.AttackCount = 0;
 
-        if (_context.CheckOnGround())
+        if (_context.CheckOnFloor())
         {
             _context.PlayerRigidbody.isKinematic = true;
             _context.PlayerAnimator.SetBool("onGround", true);
@@ -57,7 +57,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             _context.SwitchState(_factory.Fall());
         }
-        else if (_context.IsJumpDownPress && _context.CheckOnOneWayPlatform())
+        else if (_context.IsJumpDownPress && _context.CheckOnOneWayPlatform() && !_context.CheckOnGround())
         {
             _context.SwitchState(_factory.JumpDown());
         }

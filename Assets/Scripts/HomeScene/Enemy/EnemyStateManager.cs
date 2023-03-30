@@ -99,6 +99,14 @@ public class EnemyStateManager : MonoBehaviour
         this.CurrentState = newState;
     }
 
+    #region interact function
+    public void GetDamage()
+    {
+
+    }
+
+    #endregion
+
     #region useful function
     public void startCorutine(IEnumerator routine)
     {

@@ -27,7 +27,7 @@ public class EnemyChaseState : EnemyBaseState
     {
         if(!(_context.WallDetected || _context.GroundDetected))
         {
-            Vector2 target = new Vector2(_context.Target.x, _context.Rigidbody2D.position.y);
+            Vector2 target = new Vector2(_context.Target.x - _context.AttackCenter.x + _context.Rigidbody2D.position.x, _context.Rigidbody2D.position.y);
             Vector2 newPos = Vector2.MoveTowards(_context.Rigidbody2D.position, target, _context.MovingSpeed * Time.fixedDeltaTime);
             _context.Rigidbody2D.MovePosition(newPos);
         }
