@@ -192,7 +192,7 @@ public class PlayerStatesManager : MonoBehaviour
     #region useful function
     public void applyAttackForce()
     {
-        if(CheckOnGround())
+        if (CheckOnGround())
             _playerRigidbody.AddForce(AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
         else
             _playerRigidbody.AddForce(AirAttackForceMultiplier * AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
