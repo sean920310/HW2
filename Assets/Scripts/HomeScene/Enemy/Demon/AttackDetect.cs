@@ -18,9 +18,6 @@ public class AttackDetect : MonoBehaviour
     [ReadOnly]
     public bool detected = false;
 
-    [Header("Event")]
-    public UnityEvent<GameObject> OnAttackDetected;
-
     [Header("Gizmos")]
     public bool showGizmos = false;
     public Color gizmosColor;
@@ -40,7 +37,6 @@ public class AttackDetect : MonoBehaviour
             RaycastHit2D result = Physics2D.Raycast(transform.position, (target - transform.position).normalized, attackDetectRange, visibleLayer);
             if (result.collider != null)
             {
-                OnAttackDetected?.Invoke(player.gameObject);
                 return (whatIsPlayer & (1 << result.collider.gameObject.layer)) != 0;
             }
         }

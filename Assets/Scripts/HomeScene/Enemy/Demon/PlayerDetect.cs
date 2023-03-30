@@ -19,9 +19,6 @@ public class PlayerDetect : MonoBehaviour
     [ReadOnly]
     public bool detected = false;
 
-    [Header("Event")]
-    public UnityEvent<GameObject> OnPlayerDetected;
-
     [Header("Gizmos")]
     public bool showGizmos = false;
     public Color gizmosColor;
@@ -46,14 +43,9 @@ public class PlayerDetect : MonoBehaviour
         {
             target = player.transform.position;
 
-            //bool faceRight = !(transform.rotation.y == 0 ^ faceRightAtRotationZero);
-            //if ((target - transform.position).normalized.x > 0 ^ faceRight)  //if Player is on the back of Enemy, can not be detected.
-            //    return false;
-
             RaycastHit2D result = Physics2D.Raycast(transform.position, (target - transform.position).normalized, playerDetectRange, visibleLayer);
             if (result.collider != null)
             {
-                OnPlayerDetected?.Invoke(player.gameObject);
                 return (whatIsPlayer & (1 << result.collider.gameObject.layer)) != 0;
             }
         }

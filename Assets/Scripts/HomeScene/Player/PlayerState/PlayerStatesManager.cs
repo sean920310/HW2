@@ -51,6 +51,9 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] bool _showSlideColliderGizmos;
     public PhysicsMaterial2D SlidePhysics;
 
+    [SerializeField] float _slideTrailDestoryTime;
+    [SerializeField] float _slideTrailSpawnTime;
+
     [Header("Jump")]
     [SerializeField] float _jumpHeight;
     [SerializeField] float _normalGravityScale;
@@ -136,6 +139,8 @@ public class PlayerStatesManager : MonoBehaviour
     public float AirAttackForceMultiplier { get => _airAttackForceMultiplier; set => _airAttackForceMultiplier = value; }
     public float CritReserveTime { get => _critReserveTime; set => _critReserveTime = value; }
     public PlayerStateFactory Factory { get => _factory; set => _factory = value; }
+    public float SlideTrailDestoryTime { get => _slideTrailDestoryTime; set => _slideTrailDestoryTime = value; }
+    public float SlideTrailSpawnTime { get => _slideTrailSpawnTime; set => _slideTrailSpawnTime = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -187,7 +192,7 @@ public class PlayerStatesManager : MonoBehaviour
     #region useful function
     public void applyAttackForce()
     {
-        if(CheckOnGround())
+        if (CheckOnGround())
             _playerRigidbody.AddForce(AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
         else
             _playerRigidbody.AddForce(AirAttackForceMultiplier * AttackForce * AttackMovementDirection.normalized * transform.right.normalized, ForceMode2D.Force);
