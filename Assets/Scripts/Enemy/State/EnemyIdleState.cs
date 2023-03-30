@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/States/Idle")]
+
 public class EnemyIdleState : EnemyBaseState
 {
     public EnemyIdleState(EnemyStateManager context, EnemyStateFactory factory)

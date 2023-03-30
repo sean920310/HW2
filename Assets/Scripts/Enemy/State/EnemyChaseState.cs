@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/States/Chase")]
+
 public class EnemyChaseState : EnemyBaseState
 {
     public EnemyChaseState(EnemyStateManager context, EnemyStateFactory factory)

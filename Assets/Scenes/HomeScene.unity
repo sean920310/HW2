@@ -16744,7 +16744,7 @@ MonoBehaviour:
     m_Bits: 448
   target: {x: 0, y: 0, z: 0}
   detected: 0
-  showGizmos: 0
+  showGizmos: 1
   gizmosColor: {r: 0.7735849, g: 0.115088664, b: 0, a: 1}
 --- !u!1 &212141512
 GameObject:
