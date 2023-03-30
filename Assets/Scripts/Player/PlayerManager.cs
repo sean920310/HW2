@@ -11,8 +11,6 @@ public class PlayerManager : MonoBehaviour
     [ReadOnly]
     [SerializeField] int health;
 
-    public float hurtcounter;
-
     public int MaxHealth { get => maxHealth;}
     public int Health { get => health;}
 
@@ -23,12 +21,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        hurtcounter += Time.deltaTime;
-        if (hurtcounter >= 5)
-        {
-            damage(5);
-            hurtcounter = 0;
-        }
+
     }
 
     public void damage(int damage)

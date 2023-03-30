@@ -1,8 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerSlideState : PlayerBaseState
 {
+    bool trailEnd = false;
+
     public PlayerSlideState(PlayerStatesManager context, PlayerStateFactory factory)
         : base(context, factory)
     {
@@ -23,6 +26,8 @@ public class PlayerSlideState : PlayerBaseState
         _context.PlayerBoxCollider.offset = _context.SlideColliderShift;
 
         _context.PlayerBoxCollider.sharedMaterial = _context.SlidePhysics;
+
+        _context.startCorutine(slideTrail());
     }
 
     public override void UpdateState()
@@ -44,9 +49,13 @@ public class PlayerSlideState : PlayerBaseState
 
     public override void ExitState()
     {
+        trailEnd = true;
+
         _context.startCorutine(SlideCoolDown());
+
         _context.PlayerAnimator.SetBool("isSlide", false);
         _context.PlayerAnimator.SetFloat("velocityX", 0f);
+
         _context.PlayerBoxCollider.size = _context.NormalColliderSize;
         _context.PlayerBoxCollider.offset = _context.NormalColliderShift;
 
@@ -73,5 +82,44 @@ public class PlayerSlideState : PlayerBaseState
     {
         yield return new WaitForSeconds(_context.PlayerSlideCoolDownTime);
         _context.CanSlide = true;
+    }
+
+    IEnumerator slideTrail()
+    {
+        while(!trailEnd)
+        {
+            GameObject tempObject = new GameObject();
+            tempObject.transform.SetPositionAndRotation(_context.transform.position, _context.transform.rotation);
+            tempObject.transform.localScale = _context.transform.localScale;    
+            SpriteRenderer sr = tempObject.AddComponent<SpriteRenderer>();
+            SpriteRenderer playerSR = _context.GetComponent<SpriteRenderer>();
+
+            sr.sprite = playerSR.sprite;
+            sr.renderingLayerMask = playerSR.renderingLayerMask;
+            sr.sortingLayerID = playerSR.sortingLayerID;
+            sr.sortingLayerName = playerSR.sortingLayerName;
+            sr.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            GameObject.Destroy(tempObject, _context.SlideTrailDestoryTime);
+
+            _context.startCorutine(trailAlphaChange(tempObject));
+
+            yield return new WaitForSeconds(_context.SlideTrailSpawnTime);
+        }
+    }
+    IEnumerator trailAlphaChange(GameObject trailObj)
+    {
+        SpriteRenderer sr = trailObj.GetComponent<SpriteRenderer>();
+        float aliveTime = 0, alpha = 1.0f;
+        float maxAliveTime = _context.SlideTrailDestoryTime;
+
+        while (trailObj != null)
+        {
+            aliveTime += 0.01f;
+            alpha = Mathf.Lerp(1f, 0f, aliveTime / maxAliveTime);
+            sr.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+
+            yield return new WaitForSeconds(0.01f);
+        }
+
     }
 }

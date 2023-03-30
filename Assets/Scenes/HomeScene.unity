@@ -16852,13 +16852,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2083524339988350582, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
-      propertyPath: _critReserveTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2083524339988350584, guid: 38a61a11fd762e24ab7b43fdf5d60005, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28993,7 +28989,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &775211537
 GameObject:
@@ -29137,7 +29133,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &800835387
 GameObject:
@@ -31581,7 +31577,7 @@ RectTransform:
   m_Children:
   - {fileID: 937943186}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -32409,7 +32405,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &916518202
 GameObject:
@@ -32835,7 +32831,7 @@ Transform:
   m_Children:
   - {fileID: 1336871306}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1051815468
 MonoBehaviour:
@@ -43666,7 +43662,7 @@ Transform:
   - {fileID: 1792388749}
   - {fileID: 878440591}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1564177884 stripped
 MonoBehaviour:
@@ -43790,7 +43786,7 @@ Transform:
   - {fileID: 971312352}
   - {fileID: 714631507}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1588340713
 MonoBehaviour:
@@ -50590,6 +50586,7 @@ GameObject:
   - component: {fileID: 2033738463}
   - component: {fileID: 2033738462}
   - component: {fileID: 2033738461}
+  - component: {fileID: 2033738464}
   m_Layer: 0
   m_Name: MinimapCamera
   m_TagString: Untagged
@@ -50686,8 +50683,22 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2033738464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033738460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62290d3f34bc47844b2ff2f4400ec811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimapShader: {fileID: -6465566751694194690, guid: 85a6d350f0837374c918f2881028f9a6, type: 3}
+  player: {fileID: 647791545}
 --- !u!1 &2067566447
 GameObject:
   m_ObjectHideFlags: 0
