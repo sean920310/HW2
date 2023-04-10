@@ -41,7 +41,7 @@ public class PlayerWallSlideState : PlayerBaseState
 
     public override void CheckSwitchState()
     {
-        if (_context.CheckOnGround() || !_context.CheckIsTouchingWall())
+        if (_context.CheckOnFloor() || !_context.CheckIsTouchingWall())
         {
             _context.SwitchState(_factory.Idle());
         }

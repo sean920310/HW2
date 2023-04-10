@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void damage(int damage)
+    public void GetDamage(int damage)
     {
         psm.SwitchState(psm.Factory.Hurt());
         health -= damage;

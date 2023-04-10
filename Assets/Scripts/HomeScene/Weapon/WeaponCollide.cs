@@ -20,6 +20,7 @@ public class WeaponCollide : MonoBehaviour
             }
 
             Debug.Log("Enemy Hurt: " + collision.gameObject.name);
+            collision.gameObject.GetComponent<EnemyManager>().GetDamage(10);
             this.enabled = false;
         }
         

@@ -14,8 +14,8 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void EnterState()
     {
-
-
+        if(_context.CanAttack)
+            _context.startCorutine(AttackDelay());
     }
 
     public override void UpdateState()
@@ -52,7 +52,12 @@ public class EnemyAttackState : EnemyBaseState
             }
         }
     }
-    
+    IEnumerator AttackDelay()
+    {
+        _context.CanAttack = false;
+        yield return new WaitForSeconds(_context.AttackDelay);
+        _context.CanAttack = true;
+    }
 
     IEnumerator AttackCD()
     {

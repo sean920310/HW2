@@ -19,7 +19,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void EnterState()
     {
         _context.CanAttack = false;
-        if (_context.CheckOnGround())
+        if (_context.CheckOnFloor())
         {
             _context.PlayerRigidbody.isKinematic = false;
         }
@@ -42,7 +42,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void UpdateState()
     {
-        if (_context.CheckOnGround())
+        if (_context.CheckOnFloor())
         {
             _context.PlayerRigidbody.velocity = new Vector2(0f, 0f);
         }

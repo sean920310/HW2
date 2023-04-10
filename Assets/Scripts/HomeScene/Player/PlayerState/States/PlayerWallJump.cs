@@ -71,12 +71,12 @@ public class PlayerWallJump : PlayerBaseState
 
     public override void CheckSwitchState()
     {
-        if (_context.CheckOnGround())
+        if (_context.CheckOnFloor())
         {
             _context.JumpCountsLeft = _context.JumpCounts;
             _context.SwitchState(_factory.Idle());
         }
-        else if (_context.CheckIsTouchingWall() && !_context.CheckOnGround() && _context.PlayerRigidbody.velocity.y < 0f)
+        else if (_context.CheckIsTouchingWall() && !_context.CheckOnFloor() && _context.PlayerRigidbody.velocity.y < 0f)
         {
             _context.SwitchState(_factory.WallSlide());
         }

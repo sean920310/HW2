@@ -18,8 +18,10 @@ public class EnemyStateManager : MonoBehaviour
 
     [SerializeField] private bool faceRightAtRotationZero;   //TRUE when rotation.y == 0, sprite face right.
     [SerializeField] private float _movingSpeed;
+    [SerializeField] private GameObject attackCollider;
     [SerializeField] private float _attackDelay;
     [SerializeField] private float _attackCDTime;
+    [SerializeField] private float _attackDamage;
 
     public EnemyStateFactory Factory { get => _factory; set => _factory = value; }
     public EnemyBaseState CurrentState { get => _currentState; set => _currentState = value; }
@@ -63,6 +65,7 @@ public class EnemyStateManager : MonoBehaviour
         _groundDetection = GetComponentInChildren<GroundDetect>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+        attackCollider.GetComponent<EnemyAttackCollide>().SetDamage(_attackDamage);
 
         // state setup
         Factory = new EnemyStateFactory(this);
@@ -98,6 +101,13 @@ public class EnemyStateManager : MonoBehaviour
 
         this.CurrentState = newState;
     }
+
+    #region interact function
+
+    public void attackStart() => attackCollider.SetActive(true);
+    public void attackEnd() => attackCollider.SetActive(false);
+
+    #endregion
 
     #region useful function
     public void startCorutine(IEnumerator routine)
