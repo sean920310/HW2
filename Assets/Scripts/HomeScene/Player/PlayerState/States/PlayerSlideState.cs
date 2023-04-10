@@ -92,6 +92,7 @@ public class PlayerSlideState : PlayerBaseState
             tempObject.transform.SetPositionAndRotation(_context.transform.position, _context.transform.rotation);
             tempObject.transform.localScale = _context.transform.localScale;    
             SpriteRenderer sr = tempObject.AddComponent<SpriteRenderer>();
+            sr.material = new Material(Shader.Find("Sprites/Default"));
             SpriteRenderer playerSR = _context.GetComponent<SpriteRenderer>();
 
             sr.sprite = playerSR.sprite;
