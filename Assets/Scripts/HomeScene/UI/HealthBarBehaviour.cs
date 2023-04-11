@@ -9,8 +9,13 @@ public class HealthBarBehaviour : MonoBehaviour
     [SerializeField] PlayerManager pm;
 
     [SerializeField] Image HealthBarFiller;
+    [SerializeField] Image HealthBarAnimationFiller;
     [SerializeField] TextMeshProUGUI healthText;
 
+    [SerializeField] float healthAnimationWaitToDropTime;
+    [SerializeField] float healthAnimationDropSpeed;
+    [SerializeField] float healthAnimationDropAmount;
+    [SerializeField] bool isBloodDropAnimateOn;
     void Start()
     {
 
@@ -20,6 +25,24 @@ public class HealthBarBehaviour : MonoBehaviour
     void Update()
     {
         HealthBarFiller.fillAmount = (float)pm.Health / pm.MaxHealth;
+
+        if(isBloodDropAnimateOn && HealthBarFiller.fillAmount != HealthBarAnimationFiller.fillAmount)
+        {
+            StartCoroutine(healthBarAnimation());
+        }
+
         healthText.text = pm.Health.ToString() + " / " + pm.MaxHealth.ToString();
+    }
+
+    IEnumerator healthBarAnimation()
+    {
+        yield return new WaitForSeconds(healthAnimationWaitToDropTime);
+
+        while (HealthBarFiller.fillAmount < HealthBarAnimationFiller.fillAmount)
+        {
+            HealthBarAnimationFiller.fillAmount -= healthAnimationDropAmount;
+            yield return new WaitForSeconds(healthAnimationDropSpeed);
+        }
+        HealthBarAnimationFiller.fillAmount = HealthBarFiller.fillAmount;
     }
 }
