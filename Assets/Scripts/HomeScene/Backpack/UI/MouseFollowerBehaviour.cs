@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Inventory.UI;
+
 // reference: https://github.com/SunnyValleyStudio/Unity-Inventory-system-using-SO-and-MVC/blob/main/UI/MouseFollower.cs
 public class MouseFollowerBehaviour : MonoBehaviour
 {

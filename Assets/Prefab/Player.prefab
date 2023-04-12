@@ -10434,8 +10434,9 @@ GameObject:
   - component: {fileID: 2083524339988350583}
   - component: {fileID: 2083524339988350582}
   - component: {fileID: 5195570679042175255}
-  - component: {fileID: 2515996230497420180}
   - component: {fileID: 7691643151922627534}
+  - component: {fileID: 8679917247384696155}
+  - component: {fileID: 2515996230497420180}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -10746,6 +10747,9 @@ MonoBehaviour:
   _groundCheckBoxSize: {x: 0.76, y: 0.6}
   _groundCheckBoxShift: {x: 0, y: -0.44}
   _showGroundCheckBoxGizmos: 0
+  _whatIsFloor:
+    serializedVersion: 2
+    m_Bits: 0
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 192
@@ -10784,6 +10788,34 @@ MonoBehaviour:
   psm: {fileID: 2083524339988350582}
   maxHealth: 100
   health: 0
+--- !u!114 &7691643151922627534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083524339988350590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da898e75f81190541bcdefcb70b7a995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 0}
+  inventoryData: {fileID: 0}
+  initItems: []
+--- !u!114 &8679917247384696155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083524339988350590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be40786215fe3b04abc194d98e310b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: dacb312ac1d288d4f81180dfec064408, type: 2}
 --- !u!82 &2515996230497420180
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10880,20 +10912,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7691643151922627534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083524339988350590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da898e75f81190541bcdefcb70b7a995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
-  initialItems: []
 --- !u!1 &8810498659491565947
 GameObject:
   m_ObjectHideFlags: 0
