@@ -12,6 +12,7 @@ public class PlayerStatesManager : MonoBehaviour
     Transform _playerTransform;
     Rigidbody2D _playerRigidbody;
     BoxCollider2D _playerBoxCollider;
+    SpriteRenderer _playerSpriteRenderer;
 
     PlayerBaseState _currentState = null;
     PlayerStateFactory _factory = null;
@@ -31,6 +32,7 @@ public class PlayerStatesManager : MonoBehaviour
     float _wallJumpStiffTimeCounter;
     int _AttackCount;
     bool _canAttack; // affect by cool down
+    bool _isPlayerInvincible; // affect by cool down
 
     [Header("Move")]
     [SerializeField] float _playerMoveSpeed;
@@ -49,6 +51,9 @@ public class PlayerStatesManager : MonoBehaviour
     [SerializeField] Vector2 _slideColliderSize;
     [SerializeField] Vector2 _slideColliderShift;
     [SerializeField] bool _showSlideColliderGizmos;
+    [SerializeField] bool _slideInvincible;
+    [SerializeField] float _slideInvincibleEndSpeedX;
+    [SerializeField] bool _slideInvincibleShowSprite;
     public PhysicsMaterial2D SlidePhysics;
 
     [SerializeField] float _slideTrailDestoryTime;
@@ -143,6 +148,11 @@ public class PlayerStatesManager : MonoBehaviour
     public PlayerStateFactory Factory { get => _factory; set => _factory = value; }
     public float SlideTrailDestoryTime { get => _slideTrailDestoryTime; set => _slideTrailDestoryTime = value; }
     public float SlideTrailSpawnTime { get => _slideTrailSpawnTime; set => _slideTrailSpawnTime = value; }
+    public SpriteRenderer PlayerSpriteRenderer { get => _playerSpriteRenderer; set => _playerSpriteRenderer = value; }
+    public bool SlideInvincible { get => _slideInvincible; set => _slideInvincible = value; }
+    public bool SlideInvincibleShowSprite { get => _slideInvincibleShowSprite; set => _slideInvincibleShowSprite = value; }
+    public bool IsPlayerInvincible { get => _isPlayerInvincible; set => _isPlayerInvincible = value; }
+    public float SlideInvincibleEndSpeedX { get => _slideInvincibleEndSpeedX; set => _slideInvincibleEndSpeedX = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -154,9 +164,10 @@ public class PlayerStatesManager : MonoBehaviour
     {
         // get component
         _playerAnimator = GetComponent<Animator>();
-        PlayerTransform = GetComponent<Transform>();
+        _playerTransform = GetComponent<Transform>();
         _playerRigidbody = GetComponent<Rigidbody2D>();
-        PlayerBoxCollider = GetComponent<BoxCollider2D>();
+        _playerBoxCollider = GetComponent<BoxCollider2D>();
+        _playerSpriteRenderer = GetComponent<SpriteRenderer>();
 
         // state setup
         Factory = new PlayerStateFactory(this);

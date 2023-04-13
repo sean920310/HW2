@@ -28,6 +28,8 @@ public class PlayerSlideState : PlayerBaseState
         _context.PlayerBoxCollider.sharedMaterial = _context.SlidePhysics;
 
         _context.startCorutine(slideTrail());
+
+        _context.IsPlayerInvincible = _context.SlideInvincible;
     }
 
     public override void UpdateState()
@@ -38,6 +40,25 @@ public class PlayerSlideState : PlayerBaseState
             _context.FacingRight();
 
         _context.PlayerAnimator.SetFloat("velocityX", Mathf.Abs(_context.PlayerRigidbody.velocity.x));
+
+        // invincible end when speed close to 0
+        if (Mathf.Abs(_context.PlayerRigidbody.velocity.x) <= _context.SlideInvincibleEndSpeedX)
+        {
+            _context.IsPlayerInvincible = false;
+        }
+
+        // Show Sprite or not when invincible
+        if (!_context.SlideInvincibleShowSprite)
+        {
+            if (_context.IsPlayerInvincible)
+            {
+                _context.PlayerSpriteRenderer.enabled = false;
+            }
+            else
+            {
+                _context.PlayerSpriteRenderer.enabled = true;
+            }
+        }
 
         CheckSwitchState();
     }
@@ -60,6 +81,8 @@ public class PlayerSlideState : PlayerBaseState
         _context.PlayerBoxCollider.offset = _context.NormalColliderShift;
 
         _context.PlayerBoxCollider.sharedMaterial = _context.NormalPhysics;
+
+        _context.PlayerSpriteRenderer.enabled = true;
     }
 
     public override void CheckSwitchState()
@@ -116,7 +139,7 @@ public class PlayerSlideState : PlayerBaseState
         while (trailObj != null)
         {
             aliveTime += 0.01f;
-            alpha = Mathf.Lerp(1f, 0f, aliveTime / maxAliveTime);
+            alpha = Mathf.Lerp(0.8f, 0f, aliveTime / maxAliveTime);
             sr.color = new Color(1.0f, 1.0f, 1.0f, alpha);
 
             yield return new WaitForSeconds(0.01f);
