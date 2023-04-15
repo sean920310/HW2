@@ -79,38 +79,39 @@ namespace Inventory
 
         private void HandleItemActionRequest(int itemIndex)
         {
-            //InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-            //if (inventoryItem.IsEmpty)
-            //    return;
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
 
-            //IItemAction itemAction = inventoryItem.item as IItemAction;
-            //if (itemAction != null)
-            //{
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if (itemAction != null)
+            {
+                //itemAction.PerformAction(gameObject);
+                //inventoryUI.ShowItemAction(itemIndex);
+                //inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
+            }
 
-            //    inventoryUI.ShowItemAction(itemIndex);
-            //    inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
-            //}
-
-            //IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            //if (destroyableItem != null)
-            //{
+            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+            if (destroyableItem != null)
+            {
+                DropItem(itemIndex, 1);
             //    inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
-            //}
+            }
 
         }
 
         private void DropItem(int itemIndex, int quantity)
         {
-            //inventoryData.RemoveItem(itemIndex, quantity);
+            inventoryData.RemoveItem(itemIndex, quantity);
             //inventoryUI.ResetSelection();
             //audioSource.PlayOneShot(dropClip);
         }
 
         public void PerformAction(int itemIndex)
         {
-            //InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-            //if (inventoryItem.IsEmpty)
-            //    return;
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
 
             //IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             //if (destroyableItem != null)
