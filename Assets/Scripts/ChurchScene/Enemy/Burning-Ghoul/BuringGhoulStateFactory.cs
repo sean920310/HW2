@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BuringGhoulStateFactory : MonoBehaviour
+public class BurningGhoulStateFactory
 {
-    // Start is called before the first frame update
-    void Start()
+    BurningGhoulStateManager _context;
+
+    public BurningGhoulStateFactory(BurningGhoulStateManager context)
     {
-        
+        _context = context;
     }
 
-    // Update is called once per frame
-    void Update()
+    public BurningGhoulBaseState Patrol()
     {
-        
+        return new BurningGhoulPatrolState(_context, this);
+    }
+
+    public BurningGhoulBaseState Chase()
+    {
+        return new BurningGhoulChaseState(_context, this);
+    }
+
+    public BurningGhoulBaseState Attack()
+    {
+        return new BurningGhoulAttackState(_context, this);
     }
 }

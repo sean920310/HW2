@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BurningGhoulStateManager : EnemyStateManager
+public class BurningGhoulStateManager : MonoBehaviour
 {
-    EnemyBaseState _currentState = null;
-    EnemyStateFactory _factory = null;
+    BurningGhoulBaseState _currentState = null;
+    BurningGhoulStateFactory _factory = null;
 
     private PlayerDetect _playerDetection;
     private AttackDetect _attackDetection;
@@ -23,8 +23,8 @@ public class BurningGhoulStateManager : EnemyStateManager
     [SerializeField] private float _attackCDTime;
     [SerializeField] private float _attackDamage;
 
-    public EnemyStateFactory Factory { get => _factory; set => _factory = value; }
-    public EnemyBaseState CurrentState { get => _currentState; set => _currentState = value; }
+    public BurningGhoulStateFactory Factory { get => _factory; set => _factory = value; }
+    public BurningGhoulBaseState CurrentState { get => _currentState; set => _currentState = value; }
     public bool PlayerDetected { get => _playerDetected; }
     public bool AttackDetected { get => _attackDetected; }
     public bool WallDetected { get => _wallDetected; }
@@ -68,8 +68,8 @@ public class BurningGhoulStateManager : EnemyStateManager
         attackCollider.GetComponent<EnemyAttackCollide>().SetDamage(_attackDamage);
 
         // state setup
-        Factory = new EnemyStateFactory(this);
-        _currentState = Factory.Idle(); // Initial State
+        Factory = new BurningGhoulStateFactory(this);
+        _currentState = Factory.Patrol(); // Initial State
         _currentState.EnterState();
 
         //init value
@@ -93,7 +93,7 @@ public class BurningGhoulStateManager : EnemyStateManager
         _currentState.FixedUpdateState();
     }
 
-    public void SwitchState(EnemyBaseState newState)
+    public void SwitchState(BurningGhoulBaseState newState)
     {
         _currentState.ExitState();
 
