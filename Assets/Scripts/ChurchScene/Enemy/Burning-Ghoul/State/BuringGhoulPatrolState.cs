@@ -34,7 +34,12 @@ public class BurningGhoulPatrolState : BurningGhoulBaseState
         {
             Vector2 newPos = Vector2.MoveTowards(_context.Rigidbody2D.position, _context.Rigidbody2D.position - (Vector2)_context.Rigidbody2D.transform.right, _context.MovingSpeed * Time.fixedDeltaTime);
             _context.Rigidbody2D.MovePosition(newPos);
+
+            _context.Anim.SetFloat("Speed", _context.MovingSpeed);
         }
+        else
+            _context.Anim.SetFloat("Speed", 0);
+
     }
 
     public override void ExitState()

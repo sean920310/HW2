@@ -15,6 +15,7 @@ public class BurningGhoulAttackState : BurningGhoulBaseState
     {
         if (_context.CanAttack)
             _context.startCorutine(AttackDelay());
+        _context.Anim.SetFloat("Speed", 0);
     }
 
     public override void UpdateState()
@@ -35,12 +36,12 @@ public class BurningGhoulAttackState : BurningGhoulBaseState
 
     public override void ExitState()
     {
-
+        _context.attackEnd();
     }
 
     public override void CheckSwitchState()
     {
-        if (!_context.AttackDetected)
+        if (!_context.AttackDetected && !_context.Attacking)
         {
             if (!_context.PlayerDetected)
             {

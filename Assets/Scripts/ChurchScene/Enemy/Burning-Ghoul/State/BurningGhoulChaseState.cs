@@ -29,7 +29,11 @@ public class BurningGhoulChaseState : BurningGhoulBaseState
             Vector2 target = new Vector2(_context.Target.x - _context.AttackCenter.x + _context.Rigidbody2D.position.x, _context.Rigidbody2D.position.y);
             Vector2 newPos = Vector2.MoveTowards(_context.Rigidbody2D.position, target, _context.MovingSpeed * Time.fixedDeltaTime);
             _context.Rigidbody2D.MovePosition(newPos);
+            _context.Anim.SetFloat("Speed", _context.MovingSpeed);
         }
+        else
+            _context.Anim.SetFloat("Speed", 0);
+
     }
 
     public override void ExitState()

@@ -15,6 +15,7 @@ public class BurningGhoulStateManager : MonoBehaviour
     private Animator _anim;
     private bool _facingRight;
     private bool _canAttack = true;
+    private bool _attacking = false;
 
     [SerializeField] private bool faceRightAtRotationZero;   //TRUE when rotation.y == 0, sprite face right.
     [SerializeField] private float _movingSpeed;
@@ -37,6 +38,7 @@ public class BurningGhoulStateManager : MonoBehaviour
     public float AttackCDTime { get => _attackCDTime; }
     public bool CanAttack { get => _canAttack; set => _canAttack = value; }
     public Vector3 AttackCenter { get => _attackDetection.transform.position; }
+    public bool Attacking { get => _attacking; }
 
     #region readonly inspector
     [ReadOnly]
@@ -104,8 +106,16 @@ public class BurningGhoulStateManager : MonoBehaviour
 
     #region interact function
 
-    public void attackStart() => attackCollider.SetActive(true);
-    public void attackEnd() => attackCollider.SetActive(false);
+    public void attackStart() 
+    {
+        attackCollider.SetActive(true);
+        _attacking = true;
+    }
+    public void attackEnd()
+    {
+        attackCollider.SetActive(false);
+        _attacking = false;
+    }
 
     #endregion
 
