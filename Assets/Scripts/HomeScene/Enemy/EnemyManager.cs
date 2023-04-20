@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] DemonStateManager stateManager;
+    [SerializeField] EnemyStateManager stateManager;
 
     [SerializeField] private int _maxHealth;
     [ReadOnly]
@@ -27,7 +27,7 @@ public class EnemyManager : MonoBehaviour
 
     public void GetDamage(int damage)
     {
-        //esm.SwitchState(psm.Factory.Hurt());
+        stateManager.HurtState();
         _health -= damage;
     }
 }

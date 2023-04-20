@@ -26,4 +26,9 @@ public class DemonStateFactory
     {
         return new DemonAttackState(_context, this);
     }
+
+    public DemonBaseState Hurt()
+    {
+        return new DemonHurtState(_context, this);
+    }
 }

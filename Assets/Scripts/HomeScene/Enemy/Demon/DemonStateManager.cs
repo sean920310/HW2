@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemonStateManager : MonoBehaviour
+public class DemonStateManager : EnemyStateManager
 {
     DemonBaseState _currentState = null;
     DemonStateFactory _factory = null;
@@ -15,6 +15,7 @@ public class DemonStateManager : MonoBehaviour
     private Animator _anim;
     private bool _facingRight;
     private bool _canAttack = true;
+    private Material _material;
 
     [SerializeField] private bool faceRightAtRotationZero;   //TRUE when rotation.y == 0, sprite face right.
     [SerializeField] private float _movingSpeed;
@@ -22,6 +23,10 @@ public class DemonStateManager : MonoBehaviour
     [SerializeField] private float _attackDelay;
     [SerializeField] private float _attackCDTime;
     [SerializeField] private float _attackDamage;
+    [SerializeField] private Shader _colorTintShader;
+    [SerializeField] private Shader _glowingShader;
+    [SerializeField] private Color _hurtColor;
+    [SerializeField] private float _hurtFadeSpeed;
 
     public DemonStateFactory Factory { get => _factory; set => _factory = value; }
     public DemonBaseState CurrentState { get => _currentState; set => _currentState = value; }
@@ -37,6 +42,11 @@ public class DemonStateManager : MonoBehaviour
     public float AttackCDTime { get => _attackCDTime; }
     public bool CanAttack { get => _canAttack; set => _canAttack = value; }
     public Vector3 AttackCenter { get => _attackDetection.transform.position; }
+    public Shader ColorTintShader { get => _colorTintShader; }
+    public Shader GlowingShader { get => _glowingShader; }
+    public Material Material { get => _material; }
+    public Color HurtColor { get => _hurtColor; }
+    public float HurtFadeSpeed { get => _hurtFadeSpeed; }
 
     #region readonly inspector
     [ReadOnly]
@@ -66,6 +76,7 @@ public class DemonStateManager : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
         attackCollider.GetComponent<EnemyAttackCollide>().SetDamage(_attackDamage);
+        _material = GetComponent<SpriteRenderer>().material;
 
         // state setup
         Factory = new DemonStateFactory(this);
@@ -74,6 +85,7 @@ public class DemonStateManager : MonoBehaviour
 
         //init value
         _facingRight = faceRightAtRotationZero;
+        _material.shader = GlowingShader;
     }
 
     private void Update()
@@ -100,6 +112,11 @@ public class DemonStateManager : MonoBehaviour
         newState.EnterState();
 
         this.CurrentState = newState;
+    }
+
+    public override void HurtState()
+    {
+        SwitchState(_factory.Hurt());
     }
 
     #region interact function

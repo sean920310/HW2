@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BurningGhoulStateManager : MonoBehaviour
+public class BurningGhoulStateManager : EnemyStateManager
 {
     BurningGhoulBaseState _currentState = null;
     BurningGhoulStateFactory _factory = null;
@@ -16,13 +16,19 @@ public class BurningGhoulStateManager : MonoBehaviour
     private bool _facingRight;
     private bool _canAttack = true;
     private bool _attacking = false;
+    private Material _material;
 
     [SerializeField] private bool faceRightAtRotationZero;   //TRUE when rotation.y == 0, sprite face right.
     [SerializeField] private float _movingSpeed;
-    [SerializeField] private GameObject attackCollider;
+    [SerializeField] private GameObject _attackCollider;
     [SerializeField] private float _attackDelay;
     [SerializeField] private float _attackCDTime;
     [SerializeField] private float _attackDamage;
+    [SerializeField] private Shader _colorTintShader;
+    [SerializeField] private Shader _attackingShader;
+    [SerializeField] private Color _hurtColor;
+    [SerializeField] private float _hurtFadeSpeed;
+
 
     public BurningGhoulStateFactory Factory { get => _factory; set => _factory = value; }
     public BurningGhoulBaseState CurrentState { get => _currentState; set => _currentState = value; }
@@ -39,6 +45,11 @@ public class BurningGhoulStateManager : MonoBehaviour
     public bool CanAttack { get => _canAttack; set => _canAttack = value; }
     public Vector3 AttackCenter { get => _attackDetection.transform.position; }
     public bool Attacking { get => _attacking; }
+    public Shader ColorTintShader { get => _colorTintShader; }
+    public Shader AttackingShader { get => _attackingShader; }
+    public Material Material { get => _material; }
+    public Color HurtColor { get => _hurtColor; }
+    public float HurtFadeSpeed { get => _hurtFadeSpeed; }
 
     #region readonly inspector
     [ReadOnly]
@@ -67,7 +78,8 @@ public class BurningGhoulStateManager : MonoBehaviour
         _groundDetection = GetComponentInChildren<GroundDetect>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        attackCollider.GetComponent<EnemyAttackCollide>().SetDamage(_attackDamage);
+        _attackCollider.GetComponent<EnemyAttackCollide>().SetDamage(_attackDamage);
+        _material = GetComponent<SpriteRenderer>().material;
 
         // state setup
         Factory = new BurningGhoulStateFactory(this);
@@ -76,6 +88,7 @@ public class BurningGhoulStateManager : MonoBehaviour
 
         //init value
         _facingRight = faceRightAtRotationZero;
+        _material.shader = AttackingShader;
     }
 
     private void Update()
@@ -104,16 +117,21 @@ public class BurningGhoulStateManager : MonoBehaviour
         this.CurrentState = newState;
     }
 
+    public override void HurtState()
+    {
+        SwitchState(_factory.Hurt());
+    }
+
     #region interact function
 
     public void attackStart() 
     {
-        attackCollider.SetActive(true);
+        _attackCollider.SetActive(true);
         _attacking = true;
     }
     public void attackEnd()
     {
-        attackCollider.SetActive(false);
+        _attackCollider.SetActive(false);
         _attacking = false;
     }
 
