@@ -17,10 +17,6 @@ public class MenuUIManager : MonoBehaviour
         
     }
 
-    public void onStartBTNClick()
-    {
-        SceneManager.LoadScene(1);
-    }
     public void onSettingsBTNClick()
     {
 
