@@ -21,4 +21,9 @@ public class BurningGhoulStateFactory
     {
         return new BurningGhoulAttackState(_context, this);
     }
+
+    public BurningGhoulBaseState Hurt()
+    {
+        return new BurningGhoulHurtState(_context, this);
+    }
 }
