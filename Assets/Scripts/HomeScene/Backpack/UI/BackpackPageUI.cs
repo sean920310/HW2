@@ -81,7 +81,14 @@ namespace Inventory.UI
         #region handler
         private void handleShowItemAction(BackpackItem BackpackItemUI)
         {
+            int index = listOfUIItems.IndexOf(BackpackItemUI);
 
+            if (index == -1)
+            {
+                return;
+            }
+
+            OnItemActionRequested?.Invoke(index);
         }
 
         private void handleSwap(BackpackItem BackpackItemUI)

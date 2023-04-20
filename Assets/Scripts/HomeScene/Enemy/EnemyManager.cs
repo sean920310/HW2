@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] EnemyStateManager esm;
+    [SerializeField] DemonStateManager stateManager;
 
     [SerializeField] private int _maxHealth;
     [ReadOnly]
