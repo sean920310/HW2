@@ -292,6 +292,10 @@ MonoBehaviour:
   _attackDelay: 0.5
   _attackCDTime: 3
   _attackDamage: 10
+  _colorTintShader: {fileID: -6465566751694194690, guid: a15fd62ad371782458cc8e0c79293d23, type: 3}
+  _glowingShader: {fileID: -6465566751694194690, guid: 573c242d295eaa94ea8f4851a770c3e1, type: 3}
+  _hurtColor: {r: 1, g: 0.27450982, b: 0.003921569, a: 1}
+  _hurtFadeSpeed: 5
   _playerDetected: 0
   _attackDetected: 0
   _wallDetected: 0
@@ -310,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 5410909077914826671}
+  deathExplosion: {fileID: 3040618790742178559, guid: 13ce39b95be811f4b9215c6bc8bb1555, type: 3}
   _maxHealth: 100
   _health: 0
 --- !u!1 &7580880755482090003

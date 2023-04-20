@@ -20,10 +20,12 @@ public class BurningGhoulStateManager : EnemyStateManager
 
     [SerializeField] private bool faceRightAtRotationZero;   //TRUE when rotation.y == 0, sprite face right.
     [SerializeField] private float _movingSpeed;
+    [Header("Attack")]
     [SerializeField] private GameObject _attackCollider;
     [SerializeField] private float _attackDelay;
     [SerializeField] private float _attackCDTime;
     [SerializeField] private float _attackDamage;
+    [Header("Effect")]
     [SerializeField] private Shader _colorTintShader;
     [SerializeField] private Shader _attackingShader;
     [SerializeField] private Color _hurtColor;
@@ -52,6 +54,7 @@ public class BurningGhoulStateManager : EnemyStateManager
     public float HurtFadeSpeed { get => _hurtFadeSpeed; }
 
     #region readonly inspector
+    [Header("Inspector")]
     [ReadOnly]
     [SerializeField]
     private bool _playerDetected;
