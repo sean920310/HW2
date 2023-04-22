@@ -15,7 +15,7 @@ namespace Inventory
         private BackpackPageUI inventoryUI;
 
         [SerializeField]
-        private InventorySO inventoryData;
+        public InventorySO inventoryData;
 
         public List<InventoryItem> initItems = new List<InventoryItem>();
 

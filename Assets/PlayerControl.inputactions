@@ -144,7 +144,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "Blocking",
                     "isComposite": false,
                     "isPartOfComposite": false

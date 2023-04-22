@@ -55,4 +55,12 @@ public class PlayerStateFactory
     {
         return new PlayerHurtState(_context, this);
     }
+    public PlayerBaseState MainWeapon()
+    {
+        return new PlayerMainWeaponState(_context, this);
+    }
+    public PlayerBaseState BlockingWeapon()
+    {
+        return new PlayerBlockingWeaponState(_context, this);
+    }
 }

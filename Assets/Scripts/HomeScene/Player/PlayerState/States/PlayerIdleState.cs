@@ -11,6 +11,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState()
     {
+
         _context.PlayerRigidbody.velocity = new Vector2(0f, _context.PlayerRigidbody.velocity.y);
 
         //_context.AttackCount = 0;
@@ -61,13 +62,13 @@ public class PlayerIdleState : PlayerBaseState
         {
             _context.SwitchState(_factory.JumpDown());
         }
-        else if (_context.IsAttackPress && _context.CanAttack)
+        else if (_context.IsAttackPress)
         {
-            _context.SwitchState(_factory.Attack());
+            _context.SwitchState(_factory.MainWeapon());
         }
         else if (_context.IsBlockingPress)
         {
-            _context.SwitchState(_factory.Blocking());
+            _context.SwitchState(_factory.BlockingWeapon());
         }
     }
 }
