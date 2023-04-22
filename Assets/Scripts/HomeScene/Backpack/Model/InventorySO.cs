@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
@@ -13,14 +14,14 @@ namespace Inventory.Model
         private List<InventoryItem> inventoryItems;
 
         [field: SerializeField]
-        public int Size { get; private set; } = 10;
+        public int Size { get; private set; } = 3;
 
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
         public void Initialize()
         {
             inventoryItems = new List<InventoryItem>();
-            for (int i = 0; i < Size; i++)
+            for (int i = 0; i < Size; i++) // for weapon slot
             {
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
             }
