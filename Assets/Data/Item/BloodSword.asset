@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: BloodSword
+  <Description>k__BackingField: BloodSword
+  <ItemImage>k__BackingField: {fileID: 1242340866, guid: ef3cddc21976a1d4994d8781fac24baa, type: 3}
   <DefaultParametersList>k__BackingField: []
   <actionSFX>k__BackingField: {fileID: 0}

@@ -71,10 +71,9 @@ public class PlayerJumpState : PlayerBaseState
             _context.JumpCountsLeft = _context.JumpCounts;
             _context.SwitchState(_factory.WallSlide());
         }
-        else if (_context.IsAttackPress && _context.CanAttack)
+        else if (_context.IsAttackPress)
         {
-            _context.JumpCountsLeft = _context.JumpCounts;
-            _context.SwitchState(_factory.Attack());
+            _context.SwitchState(_factory.MainWeapon());
         }
     }
 }

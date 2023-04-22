@@ -5,6 +5,8 @@ using System.ComponentModel;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Inventory;
+using Inventory.Model;
 
 public class PlayerStatesManager : MonoBehaviour
 {
@@ -33,7 +35,7 @@ public class PlayerStatesManager : MonoBehaviour
     int _AttackCount;
     bool _canAttack; // affect by cool down
     bool _isPlayerInvincible; // affect by cool down
-
+    [SerializeField] public BackpackController backpack;
     [Header("Move")]
     [SerializeField] float _playerMoveSpeed;
     [SerializeField] float _playerMaxSpeedX;
@@ -347,6 +349,10 @@ public class PlayerStatesManager : MonoBehaviour
         if (ctx.performed)
         {
             _isAttackPress = true;
+        }
+        if (ctx.canceled)
+        {
+            _isAttackPress = false;
         }
     }
     public void OnShield(InputAction.CallbackContext ctx)

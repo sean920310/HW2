@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] DemonStateManager stateManager;
+    [SerializeField] EnemyStateManager stateManager;
 
+    [SerializeField] private GameObject deathExplosion;
     [SerializeField] private int _maxHealth;
     [ReadOnly]
     [SerializeField] private int _health;
@@ -22,12 +23,16 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Health <= 0)
+        {
+            Instantiate(deathExplosion, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 
     public void GetDamage(int damage)
     {
-        //esm.SwitchState(psm.Factory.Hurt());
+        stateManager.HurtState();
         _health -= damage;
     }
 }

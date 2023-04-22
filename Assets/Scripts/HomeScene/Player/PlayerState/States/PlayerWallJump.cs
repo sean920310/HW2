@@ -84,13 +84,13 @@ public class PlayerWallJump : PlayerBaseState
         {
             _context.SwitchState(_factory.Jump());
         }
-        else if (_context.IsAttackPress && _context.CanAttack)
+        else if (_context.IsAttackPress)
         {
-            _context.SwitchState(_factory.Attack());
+            _context.SwitchState(_factory.MainWeapon());
         }
         else if (_context.IsBlockingPress)
         {
-            _context.SwitchState(_factory.Blocking());
+            _context.SwitchState(_factory.BlockingWeapon());
         }
     }
 }

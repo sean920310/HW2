@@ -17,6 +17,12 @@ namespace Inventory.UI
 
         [SerializeField]
         private RectTransform contentPanel;
+        [SerializeField]
+        private RectTransform mainWeaponPanel;
+        [SerializeField]
+        private RectTransform blockingWeaponPanel;
+        [SerializeField]
+        private RectTransform potionPanel;
 
         [SerializeField] private BackpackDescription backpackDescription;
 
@@ -37,11 +43,34 @@ namespace Inventory.UI
 
         public void InitializeBackpackUI(int inventorysize)
         {
+
             for (int i = 0; i < inventorysize; i++)
             {
                 BackpackItem uiItem =
                     Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
-                uiItem.transform.SetParent(contentPanel);
+
+
+                if (i >= inventorysize - 3)
+                {
+                    if(i == inventorysize - 3)
+                    {
+                        uiItem.transform.SetParent(mainWeaponPanel);
+
+                    }
+                    else if (i == inventorysize - 2)
+                    {
+                        uiItem.transform.SetParent(blockingWeaponPanel);
+                    }
+                    else if (i == inventorysize - 1)
+                    {
+                        uiItem.transform.SetParent(potionPanel);
+                    }
+                    uiItem.GetComponent<RectTransform>().sizeDelta = new Vector2(100,100);
+                    uiItem.GetComponent<RectTransform>().localPosition = Vector3.zero;
+                    uiItem.GetComponent<Image>().color = new Color(0,0,0,0);
+                }
+                else
+                    uiItem.transform.SetParent(contentPanel);
 
                 uiItem.OnItemClicked += handleItemSelection;
                 uiItem.OnItemBeginDrag += handleItemBeginDrag;
@@ -50,7 +79,6 @@ namespace Inventory.UI
                 uiItem.OnItemRightMouseBtnClicked += handleShowItemAction;
 
                 listOfUIItems.Add(uiItem);
-
             }
         }
         public void UpdateData(int itemIndex, Sprite itemImage, int itemQuantity)
@@ -81,6 +109,8 @@ namespace Inventory.UI
         #region handler
         private void handleShowItemAction(BackpackItem BackpackItemUI)
         {
+
+            Debug.Log("SHOW");
             int index = listOfUIItems.IndexOf(BackpackItemUI);
 
             if (index == -1)
@@ -94,6 +124,8 @@ namespace Inventory.UI
         private void handleSwap(BackpackItem BackpackItemUI)
         {
             int index = listOfUIItems.IndexOf(BackpackItemUI);
+
+            Debug.Log("END " + index.ToString());
 
             if (index == -1)
             {
@@ -113,7 +145,7 @@ namespace Inventory.UI
         private void handleItemBeginDrag(BackpackItem BackpackItemUI)
         {
             int index = listOfUIItems.IndexOf(BackpackItemUI);
-
+            Debug.Log("BEGIN");
             if (index == -1)
                 return;
 
