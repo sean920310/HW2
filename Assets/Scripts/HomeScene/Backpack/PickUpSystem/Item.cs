@@ -17,6 +17,7 @@ public class Item : MonoBehaviour
     [SerializeField]
     private float duration = 0.05f;
 
+    public bool used = false;
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
