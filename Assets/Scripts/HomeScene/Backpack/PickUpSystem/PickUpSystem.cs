@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PickUpSystem : MonoBehaviour
 {
@@ -17,11 +16,19 @@ public class PickUpSystem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.transform.root.GetComponent<Item>();
+
         if (item != null)
         {
-            int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
+            int reminder = 0;
+
+            if (!item.used)
+                reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
+
             if (reminder == 0)
+            {
                 item.DestroyItem();
+                item.used = true;
+            }
             else
                 item.Quantity = reminder;
         }

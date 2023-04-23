@@ -98,7 +98,7 @@ public class PlayerStatesManager : MonoBehaviour
     public Animator PlayerAnimator { get => _playerAnimator; set => _playerAnimator = value; }
     public Rigidbody2D PlayerRigidbody { get => _playerRigidbody; set => _playerRigidbody = value; }
     public Transform PlayerTransform { get => _playerTransform; set => _playerTransform = value; }
-    public PlayerBaseState CurrentState { get => _currentState; set => _currentState = value; }
+    public PlayerBaseState CurrentState { get => _currentState;}
     public BoxCollider2D PlayerBoxCollider { get => _playerBoxCollider; set => _playerBoxCollider = value; }
     public bool IsJumpPress { get => _isJumpPress; set => _isJumpPress = value; }
     public bool IsJumpRelease { get => _isJumpRelease; set => _isJumpRelease = value; }
@@ -201,7 +201,7 @@ public class PlayerStatesManager : MonoBehaviour
 
         newState.EnterState();
 
-        this.CurrentState = newState;
+        this._currentState = newState;
     }
 
     #region useful function

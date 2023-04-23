@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuUIManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private GameObject playMenu;
     void Start()
     {
         
@@ -17,6 +18,10 @@ public class MenuUIManager : MonoBehaviour
         
     }
 
+    public void onPlayBTNClick()
+    {
+        playMenu.SetActive(true);
+    }
     public void onSettingsBTNClick()
     {
 
