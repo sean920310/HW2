@@ -529,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateManager: {fileID: 8671824194529682870}
   deathExplosion: {fileID: 3040618790742178559, guid: 13ce39b95be811f4b9215c6bc8bb1555, type: 3}
-  _maxHealth: 30
+  _maxHealth: 60
   _health: 0
 --- !u!1 &8671824194648763186
 GameObject:
