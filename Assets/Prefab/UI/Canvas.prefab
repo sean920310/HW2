@@ -187,6 +187,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 3596897780021207485}
     m_Modifications:
     - target: {fileID: -5884264514330013241, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+      propertyPath: potionPanel
+      value: 
+      objectReference: {fileID: 2328485627759802234}
+    - target: {fileID: -5884264514330013241, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+      propertyPath: mainWeaponPanel
+      value: 
+      objectReference: {fileID: 2328485627637766150}
+    - target: {fileID: -5884264514330013241, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+      propertyPath: blockingWeaponPanel
+      value: 
+      objectReference: {fileID: 2328485627228852952}
+    - target: {fileID: -5884264514330013241, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
       propertyPath: mouseFollowerBehaviour
       value: 
       objectReference: {fileID: 3596897779592221548}
@@ -540,14 +552,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+--- !u!224 &2328485627228852952 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1277560141412318436, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+  m_PrefabInstance: {fileID: 3596897780355837500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2328485627228852953 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1277560141412318437, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
   m_PrefabInstance: {fileID: 3596897780355837500}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &2328485627637766150 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1277560142089664058, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+  m_PrefabInstance: {fileID: 3596897780355837500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2328485627637766151 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1277560142089664059, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
+  m_PrefabInstance: {fileID: 3596897780355837500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2328485627759802234 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1277560141960026438, guid: f1d6cf8f43cea90448379924dd4ce98e, type: 3}
   m_PrefabInstance: {fileID: 3596897780355837500}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2328485627759802235 stripped

@@ -4829,7 +4829,7 @@ GameObject:
   - component: {fileID: 275984144}
   - component: {fileID: 275984143}
   - component: {fileID: 275984142}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BloodSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5255,7 +5255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 499119124}
   - component: {fileID: 499119125}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10505,7 +10505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1533329338086340156}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10904,6 +10904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   psm: {fileID: 2083524339988350582}
+  blockingRatio: 0.5
   _maxHealth: 100
   _health: 0
   _money: 0
@@ -11042,7 +11043,7 @@ GameObject:
   - component: {fileID: 8933870588020298519}
   - component: {fileID: 1918111422155511527}
   - component: {fileID: 2717413807590528255}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: CoinCollector
   m_TagString: CoinCollector
   m_Icon: {fileID: 0}
@@ -11153,7 +11154,7 @@ GameObject:
   - component: {fileID: 4668471564353530569}
   - component: {fileID: 7122643667486751905}
   - component: {fileID: 1373054486168189645}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Magnet
   m_TagString: CoinMagnet
   m_Icon: {fileID: 0}
@@ -11254,7 +11255,7 @@ GameObject:
   - component: {fileID: 3116527491240457769}
   - component: {fileID: 1394040080493198344}
   - component: {fileID: 1339746063594358455}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
