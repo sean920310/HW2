@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
     public void GetDamage(int damage)
     {
         psm.SwitchState(psm.Factory.Hurt());
-
+        StartCoroutine(DamageEffect.GetDamage());
         if (psm.CurrentState.ToString() == "PlayerBlockingState")
             _health -= (int)((float)damage * blockingRatio);
         else
