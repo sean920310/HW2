@@ -22,8 +22,9 @@ public class NextLevelTrigger : MonoBehaviour
     {
         if ((playerLayer & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
         {
-            winCanvas.SetActive(true);
-            Time.timeScale = 0;
+            //winCanvas.SetActive(true);
+            //Time.timeScale = 0;
+            GetComponent<LoadingScene>().LoadScene(2);
         }
     }
 }
