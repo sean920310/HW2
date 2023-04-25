@@ -798,6 +798,7 @@ MonoBehaviour:
   newGameButton: {fileID: 2123118123}
   continueGameButton: {fileID: 2090176057}
   loadGameButton: {fileID: 1188985158}
+  loader: {fileID: 58463958}
 --- !u!114 &381008262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1489,6 +1490,7 @@ MonoBehaviour:
   firstSelected: {fileID: 1292460770}
   mainMenu: {fileID: 381008261}
   backButton: {fileID: 1409733759}
+  loader: {fileID: 58463958}
 --- !u!114 &1371811764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,7 +1700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3312291582102142076, guid: 4b7807c5c47345a4b82698b8bcdd3334, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: onSettingsBTNClick
+      value: onQuitBTNClick
       objectReference: {fileID: 0}
     - target: {fileID: 3312291582102142076, guid: 4b7807c5c47345a4b82698b8bcdd3334, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2533,6 +2535,10 @@ PrefabInstance:
     - target: {fileID: 2922863421229601316, guid: 1d7e3e2fd45a94d42a258397693597b9, type: 3}
       propertyPath: m_Name
       value: LoadingPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922863421229601316, guid: 1d7e3e2fd45a94d42a258397693597b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2922863421229601319, guid: 1d7e3e2fd45a94d42a258397693597b9, type: 3}
       propertyPath: m_Pivot.x

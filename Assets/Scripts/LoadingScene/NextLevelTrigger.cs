@@ -5,6 +5,7 @@ using UnityEngine;
 public class NextLevelTrigger : MonoBehaviour
 {
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] GameObject winCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,8 @@ public class NextLevelTrigger : MonoBehaviour
     {
         if ((playerLayer & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
         {
-            GetComponent<LoadingScene>().LoadScene(2);
+            winCanvas.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }
