@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] PlayerStatesManager psm;
+    [SerializeField] GameObject lose;
 
     [SerializeField] float blockingRatio = 0.5f;
 
@@ -33,6 +34,8 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
         if(this.transform.position.y < -20 || _health <= 0)
         {
             //dead
+            lose.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
@@ -50,12 +53,12 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
 
     public void GetDamage(int damage)
     {
-        psm.SwitchState(psm.Factory.Hurt());
-        StartCoroutine(DamageEffect.GetDamage());
         if (psm.CurrentState.ToString() == "PlayerBlockingState")
             _health -= (int)((float)damage * blockingRatio);
         else
             _health -= damage;
+        psm.SwitchState(psm.Factory.Hurt());
+        StartCoroutine(DamageEffect.GetDamage());
     }
     public void AddHealth(int val)
     {

@@ -24,6 +24,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     public static DataPersistenceManager instance { get; private set; }
 
+    public bool newGame = false;
+
     private void Awake() 
     {
         if (instance != null) 
@@ -90,7 +92,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void LoadGame(Scene scene)
     {
         // return right away if data persistence is disabled
-        if (disableDataPersistence && scene.buildIndex == 0) 
+        if (disableDataPersistence && scene.buildIndex == 0)
         {
             return;
         }
@@ -99,7 +101,7 @@ public class DataPersistenceManager : MonoBehaviour
         this.gameData = dataHandler.Load(selectedProfileId);
 
         // start a new game if the data is null and we're configured to initialize data for debugging purposes
-        if (this.gameData == null && initializeDataIfNull) 
+        if (this.gameData == null && initializeDataIfNull || newGame) 
         {
             NewGame();
         }

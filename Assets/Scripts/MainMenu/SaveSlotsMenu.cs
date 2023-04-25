@@ -12,6 +12,9 @@ public class SaveSlotsMenu : Menu
     [Header("Menu Buttons")]
     [SerializeField] private Button backButton;
 
+    [SerializeField] LoadingScene loader;
+
+
     private SaveSlot[] saveSlots;
 
     private bool isLoadingGame = false;
@@ -28,7 +31,7 @@ public class SaveSlotsMenu : Menu
 
         // update the selected profile id to be used for data persistence
         DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-
+        DataPersistenceManager.instance.newGame = !isLoadingGame;
         if (!isLoadingGame) 
         {
             // create a new game - which will initialize our data to a clean slate
@@ -36,7 +39,7 @@ public class SaveSlotsMenu : Menu
         }
 
         // load the scene - which will in turn save the game because of OnSceneUnloaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync(1);
+        loader.LoadScene(1);
     }
 
     public void OnBackClicked() 
