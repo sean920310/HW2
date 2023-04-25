@@ -25,6 +25,9 @@ public class DataPersistenceManager : MonoBehaviour
     public static DataPersistenceManager instance { get; private set; }
 
     public bool newGame = false;
+    public bool changeSceneInData = true;
+
+    public bool preventSceneChangeOnce = false;
 
     private void Awake() 
     {
@@ -69,6 +72,8 @@ public class DataPersistenceManager : MonoBehaviour
         
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame(scene);
+        if (preventSceneChangeOnce)
+            preventSceneChangeOnce = false;
     }
 
     public void OnSceneUnloaded(Scene scene)
@@ -91,6 +96,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame(Scene scene)
     {
+        Debug.Log("LoadGame");
         // return right away if data persistence is disabled
         if (disableDataPersistence && scene.buildIndex == 0)
         {
@@ -113,7 +119,7 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        if(scene.buildIndex != 0 && scene.buildIndex != this.gameData.playerCurrentScene)
+        if(scene.buildIndex != 0 && scene.buildIndex != this.gameData.playerCurrentScene && changeSceneInData && !preventSceneChangeOnce)
         {
             SceneManager.LoadSceneAsync(this.gameData.playerCurrentScene);
             return;

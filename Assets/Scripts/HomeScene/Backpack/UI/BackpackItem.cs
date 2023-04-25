@@ -49,7 +49,10 @@ namespace Inventory.UI
             quantityText.text = quantity.ToString();
             empty = false;
         }
-
+        public void OnDestroy()
+        {
+            ResetData();
+        }
         #region Event Handler
         public void OnDrag(PointerEventData eventData)
         {

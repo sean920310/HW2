@@ -1,3 +1,4 @@
+using Inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class GameData
     public int coinCount;
     public Vector3 playerPosition;
     public int playerCurrentScene;
+    public List<InventoryItem> backpackItems;
     // public SerializableDictionary<string, bool> coinsCollected;
 
     // the values defined in this constructor will be the default values
@@ -18,6 +20,7 @@ public class GameData
         this.coinCount = 0;
         playerPosition = Vector3.zero;
         this.playerCurrentScene = 1;
+        backpackItems = new List<InventoryItem>();
         //coinsCollected = new SerializableDictionary<string, bool>();
     }
 

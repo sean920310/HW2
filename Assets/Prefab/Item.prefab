@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6937072153512271158}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4128120157642685028
 MonoBehaviour:
@@ -142,7 +142,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6937072153512271158}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &9195133245924605149
 VisualEffect:
@@ -254,9 +254,9 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 6241694186002132491}
   - {fileID: 6738370969933729501}
   - {fileID: 2150964992705516907}
-  - {fileID: 6241694186002132491}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -324,10 +324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7bd64ff4cd4844e92aa9ee799ef0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: b1a1ba536dc06a842a0d8461690b1c2d, type: 2}
+  InventoryItem: {fileID: 0}
   <Quantity>k__BackingField: 1
   audioSource: {fileID: 6937072153512271154}
   duration: 0.05
+  used: 0
 --- !u!82 &6937072153512271154
 AudioSource:
   m_ObjectHideFlags: 0
@@ -444,7 +445,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!58 &8558561558168608943
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -491,7 +492,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6937072153512271158}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1341141697769350935
 CircleCollider2D:
