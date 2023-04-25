@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 // reference: https://github.com/SunnyValleyStudio/Unity-Inventory-system-using-SO-and-MVC
 
 namespace Inventory.UI
@@ -34,6 +35,9 @@ namespace Inventory.UI
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDragging;
         public event Action<int, int> OnSwapItems;
+
+        [SerializeField]
+        private ItemActionPanel actionPanel;
 
         private void Awake()
         {
@@ -94,17 +98,36 @@ namespace Inventory.UI
             DeselectAllItems();
             listOfUIItems[itemIndex].Select();
         }
+        private void HandleItemSelection(BackpackItem inventoryItemUI)
+        {
+            int index = listOfUIItems.IndexOf(inventoryItemUI);
+            if (index == -1)
+                return;
+            OnDescriptionRequested?.Invoke(index);
+        }
         public void ResetSelection()
         {
             backpackDescription.ResetDescription();
             DeselectAllItems();
         }
+        public void AddAction(string actionName, Action performAction)
+        {
+            actionPanel.AddButon(actionName, performAction);
+        }
+
+        public void ShowItemAction(int itemIndex)
+        {
+            actionPanel.Toggle(true);
+            actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
+        }
+
         private void DeselectAllItems()
         {
             foreach (BackpackItem item in listOfUIItems)
             {
                 item.Deselect();
             }
+            actionPanel.Toggle(false);
         }
         #region handler
         private void handleShowItemAction(BackpackItem BackpackItemUI)
@@ -181,6 +204,21 @@ namespace Inventory.UI
                 item.Deselect();
             }
         }
+
+        private void OnDestroy()
+        {
+            foreach (var item in listOfUIItems)
+            {
+
+                item.OnItemClicked -= handleItemSelection;
+                item.OnItemBeginDrag -= handleItemBeginDrag;
+                item.OnItemDroppedOn -= handleSwap;
+                item.OnItemEndDrag -= handleItemEndDrag;
+                item.OnItemRightMouseBtnClicked -= handleShowItemAction;
+            }
+            ResetAllItems();
+        }
+
         #endregion
 
         #region UI Show/Hide

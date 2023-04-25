@@ -12,7 +12,6 @@ public class PlayerBlockingState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("enter");
         _context.PlayerAnimator.SetBool("onShield", true);
 
         _context.PlayerBoxCollider.sharedMaterial = _context.BlockingPhysics;
@@ -35,7 +34,6 @@ public class PlayerBlockingState : PlayerBaseState
 
     public override void ExitState()
     {
-        Debug.Log("leave");
         _context.PlayerAnimator.SetBool("onShield", false);
         _context.PlayerBoxCollider.sharedMaterial = _context.NormalPhysics;
     }
@@ -49,7 +47,6 @@ public class PlayerBlockingState : PlayerBaseState
             string itemName = item.name;
             if (itemName == "Shield")
             {
-                Debug.Log("Is In SEC");
                 blockingPress = _context.IsBlockingPress;
                 if (!blockingPress)
                 {
@@ -59,7 +56,6 @@ public class PlayerBlockingState : PlayerBaseState
             else
             {
                 blockingPress = _context.IsAttackPress;
-                Debug.Log("Is In MAIN " + blockingPress);
                 if (!blockingPress)
                 {
                     _context.SwitchState(_factory.Idle());
@@ -69,7 +65,6 @@ public class PlayerBlockingState : PlayerBaseState
         else
         {
             blockingPress = _context.IsAttackPress;
-            Debug.Log("Is In NULL " + blockingPress);
             if (!blockingPress)
             {
                 _context.SwitchState(_factory.Idle());

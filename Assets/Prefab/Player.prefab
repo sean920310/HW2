@@ -10904,8 +10904,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   psm: {fileID: 2083524339988350582}
+  lose: {fileID: 0}
   blockingRatio: 0.5
   _maxHealth: 100
+  _lowHealth: 0
   _health: 0
   _money: 0
 --- !u!114 &7691643151922627534
@@ -10923,6 +10925,11 @@ MonoBehaviour:
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: dacb312ac1d288d4f81180dfec064408, type: 2}
   initItems: []
+  dropClip: {fileID: 0}
+  audioSource: {fileID: 0}
+  ItemPrefab: {fileID: 6937072153512271153, guid: 2670fd4ef07ff7b4b92d302598f41548, type: 3}
+  pickUpSystem: {fileID: 8679917247384696155}
+  isInit: 0
 --- !u!114 &8679917247384696155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10936,6 +10943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: dacb312ac1d288d4f81180dfec064408, type: 2}
+  dontPickup: 0
 --- !u!82 &2515996230497420180
 AudioSource:
   m_ObjectHideFlags: 0

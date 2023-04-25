@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NextLevelTrigger : MonoBehaviour
 {
     [SerializeField] LayerMask playerLayer;
     [SerializeField] GameObject winCanvas;
+    DataPersistenceManager gd;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gd = GameObject.Find("DataPersistenceManager").GetComponent<DataPersistenceManager>();
     }
 
     // Update is called once per frame
@@ -24,6 +26,8 @@ public class NextLevelTrigger : MonoBehaviour
         {
             //winCanvas.SetActive(true);
             //Time.timeScale = 0;
+            if(gd)
+                gd.preventSceneChangeOnce = true;
             GetComponent<LoadingScene>().LoadScene(2);
         }
     }

@@ -11,7 +11,7 @@ namespace Inventory.Model
     public class InventorySO : ScriptableObject
     {
         [SerializeField]
-        private List<InventoryItem> inventoryItems;
+        public List<InventoryItem> inventoryItems;
 
         [field: SerializeField]
         public int Size { get; private set; } = 3;
@@ -42,6 +42,19 @@ namespace Inventory.Model
             }
             quantity = AddStackableItem(item, quantity);
             InformAboutChange();
+            return quantity;
+        }
+        public int AddItemByIdx(ItemSO item, int quantity, int idx, List<ItemParameter> itemState = null)
+        {
+            InventoryItem newItem = new InventoryItem
+            {
+                item = item,
+                quantity = quantity,
+                itemState =
+                new List<ItemParameter>(itemState == null ? item.DefaultParametersList : itemState)
+            };
+
+            inventoryItems[idx] = newItem;
             return quantity;
         }
 
@@ -148,6 +161,10 @@ namespace Inventory.Model
         {
             AddItem(item.item, item.quantity);
         }
+        public void AddItemByIdx(InventoryItem item, int idx)
+        {
+            AddItemByIdx(item.item, item.quantity, idx);
+        }
 
         internal void SwapItems(int itemIndex_1, int itemIndex_2)
         {
@@ -178,6 +195,10 @@ namespace Inventory.Model
 
                 InformAboutChange();
             }
+        }
+        public void OnDestroy()
+        {
+            inventoryItems.Clear();
         }
     }
 

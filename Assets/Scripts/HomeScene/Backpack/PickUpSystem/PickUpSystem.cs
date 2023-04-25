@@ -8,6 +8,9 @@ public class PickUpSystem : MonoBehaviour
 {
     [SerializeField]
     private InventorySO inventoryData;
+
+    public bool dontPickup = false;
+
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(8, 12);
@@ -15,6 +18,9 @@ public class PickUpSystem : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (dontPickup)
+            return;
+
         Item item = collision.transform.root.GetComponent<Item>();
 
         if (item != null)
