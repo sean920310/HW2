@@ -16,14 +16,18 @@ public class LoadingScene : MonoBehaviour
 
     IEnumerator LoadSceneAsync(int sceneID)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
         loadingScreen.SetActive(true);
+        yield return new WaitForSeconds(2f);
 
-        while(!operation.isDone)
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneID);
+        
+
+        while (!operation.isDone)
         {
             float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
             progressText.text = (int)(progressValue * 100) + " %";
             yield return null;
         }
+
     }
 }
