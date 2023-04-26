@@ -86,7 +86,7 @@ public class DataPersistenceManager : MonoBehaviour
         // update the profile to use for saving and loading
         this.selectedProfileId = newProfileId;
         // load the game, which will use that profile, updating our game data accordingly
-        //LoadGame();
+        LoadGame(SceneManager.GetActiveScene());
     }
 
     public void NewGame() 
@@ -96,7 +96,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame(Scene scene)
     {
-        Debug.Log("LoadGame");
         // return right away if data persistence is disabled
         if (disableDataPersistence && scene.buildIndex == 0)
         {
@@ -104,7 +103,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         // load any saved data from a file using the data handler
-        this.gameData = dataHandler.Load(selectedProfileId);
+        dataHandler.Load(selectedProfileId, out this.gameData);
 
         // start a new game if the data is null and we're configured to initialize data for debugging purposes
         if (this.gameData == null && initializeDataIfNull || newGame) 

@@ -44,6 +44,7 @@ namespace Inventory
 
         public void LoadData(GameData data)
         {
+            Debug.Log("Load BackPack Data" + data.backpackItems);
             isInit = true;
             initItems = data.backpackItems;
             PrepareUI();
