@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -14,10 +15,10 @@ public class GameSettingsManager : MonoBehaviour
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
 
-    private string selectedProfileId = "";
+    private string selectedProfileId = "gamesettings";
 
     private List<ISettingsDataPersistence> dataPersistenceObjects;
-    private GameSettingsData settingsData;
+    public GameSettingsData settingsData;
     private FileDataHandler dataHandler;
 
     private void Awake()
@@ -35,7 +36,7 @@ public class GameSettingsManager : MonoBehaviour
 
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
 
-        this.selectedProfileId = dataHandler.GetMostRecentlyUpdatedProfileId();
+        //this.selectedProfileId = dataHandler.GetMostRecentlyUpdatedProfileId();
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -101,9 +102,7 @@ public class GameSettingsManager : MonoBehaviour
             return;
         }
 
-
         // pass the data to other scripts so they can update it
-
         foreach (ISettingsDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
             dataPersistenceObj.SaveData(settingsData);
@@ -112,15 +111,21 @@ public class GameSettingsManager : MonoBehaviour
         // timestamp the data so we know when it was last saved
         settingsData.lastUpdated = System.DateTime.Now.ToBinary();
 
+        Debug.Log("It's time to Save Game Setting: " + selectedProfileId);
+
         // save that data to a file using the data handler
         dataHandler.Save(settingsData, selectedProfileId);
     }
 
     private List<ISettingsDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<ISettingsDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>()
-            .OfType<ISettingsDataPersistence>();
-
+        //IEnumerable<ISettingsDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISettingsDataPersistence>();
+        IEnumerable<ISettingsDataPersistence> dataPersistenceObjects = Resources.FindObjectsOfTypeAll(typeof(MonoBehaviour)).OfType<ISettingsDataPersistence>();
         return new List<ISettingsDataPersistence>(dataPersistenceObjects);
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveSettings();
     }
 }

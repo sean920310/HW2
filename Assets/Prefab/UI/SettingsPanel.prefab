@@ -5208,6 +5208,7 @@ GameObject:
   - component: {fileID: 8053261946671185156}
   - component: {fileID: 8053261946671185154}
   - component: {fileID: 8053261946671185155}
+  - component: {fileID: 890926561020536037}
   m_Layer: 5
   m_Name: GeneralPanel
   m_TagString: Untagged
@@ -5275,6 +5276,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &890926561020536037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053261946671185157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11f8e75077368d458a7afe91a31fe66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinimapToggle: {fileID: 8053261948032151680}
 --- !u!1 &8053261946679850090
 GameObject:
   m_ObjectHideFlags: 0
@@ -5945,6 +5959,7 @@ GameObject:
   - component: {fileID: 8053261946878569915}
   - component: {fileID: 8053261946878569913}
   - component: {fileID: 8053261946878569914}
+  - component: {fileID: 1320712763449747671}
   m_Layer: 5
   m_Name: AudioPanel
   m_TagString: Untagged
@@ -6014,6 +6029,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1320712763449747671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053261946878569916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e21ebfe1148dc546a85212866447cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8053261946900813099
 GameObject:
   m_ObjectHideFlags: 0
@@ -7467,7 +7494,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &8053261948132647759
 GameObject:
   m_ObjectHideFlags: 0

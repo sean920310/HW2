@@ -147,6 +147,7 @@ public class FileDataHandler
 
     public void Save(GameSettingsData data, string profileId)
     {
+        Debug.Log("Save Game Setting: " + profileId);
         // base case - if the profileId is null, return right away
         if (profileId == null)
         {
@@ -210,6 +211,7 @@ public class FileDataHandler
             // because if it is then something went wrong and we should let ourselves know
             if (profileData != null) 
             {
+
                 profileDictionary.Add(profileId, profileData);
             }
             else 
