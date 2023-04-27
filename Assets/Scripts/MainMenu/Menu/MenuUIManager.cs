@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class MenuUIManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private GameObject playMenu;
+    [SerializeField] private GameObject PlayMenu;
+    [SerializeField] private GameObject OptionsMenu;
     void Start()
     {
         
@@ -15,16 +16,20 @@ public class MenuUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            PlayMenu.SetActive(false);
+            OptionsMenu.SetActive(false);
+        }
     }
 
     public void onPlayBTNClick()
     {
-        playMenu.SetActive(true);
+        PlayMenu.SetActive(true);
     }
     public void onSettingsBTNClick()
     {
-
+        OptionsMenu.SetActive(true);
     }
     public void onQuitBTNClick()
     {

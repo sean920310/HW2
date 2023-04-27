@@ -150,6 +150,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerRebinding",
+            "id": "9e71f4c2-ef83-49cd-b69c-2aa012b6c424",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "99c2e6da-e76d-4235-a178-6b283b6688a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ffeb3600-18ed-4919-a617-cdd4d92dec17",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

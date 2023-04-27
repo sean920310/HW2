@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 // reference: https://github.com/SunnyValleyStudio/Unity-Inventory-system-using-SO-and-MVC
 
 namespace Inventory.UI
