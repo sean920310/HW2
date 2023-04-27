@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour, IDataPersistence
@@ -30,6 +31,7 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        //GetComponent<PlayerInput>() = GameObject.Find("A").GetComponent<PlayerInput>();
         DamageEffect.LowHealth(_health <= _lowHealth);
 
         if(this.transform.position.y < -20 || _health <= 0)

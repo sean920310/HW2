@@ -18,6 +18,9 @@ public class GameSettingsData
     [SerializeField] public float UIVolume;
 
     // Video
+    [SerializeField] public bool fullscreen;
+    [SerializeField] public int resolutionWidth;
+    [SerializeField] public int resolutionHeight;
 
     public GameSettingsData()
     {
@@ -27,5 +30,9 @@ public class GameSettingsData
         MusicVolume  = 1.0f;
         SoundVolume  = 1.0f;
         UIVolume = 1.0f;
+
+        fullscreen = true;
+        resolutionWidth = 1920;
+        resolutionHeight = 1080;
     }
 }

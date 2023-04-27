@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +22,8 @@ public class GameSettingsManager : MonoBehaviour
     private List<ISettingsDataPersistence> dataPersistenceObjects;
     public GameSettingsData settingsData;
     private FileDataHandler dataHandler;
+
+    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
 
     private void Awake()
     {
@@ -69,6 +73,15 @@ public class GameSettingsManager : MonoBehaviour
             dataPersistenceObj.LoadData(settingsData);
         }
 
+    }
+
+    public void UpdateWithSettings()
+    {
+
+        if (Screen.fullScreen != settingsData.fullscreen || settingsData.resolutionWidth != Screen.currentResolution.width || settingsData.resolutionHeight != Screen.currentResolution.height)
+        {
+            Screen.SetResolution(settingsData.resolutionWidth, settingsData.resolutionHeight, settingsData.fullscreen);
+        }
     }
 
     private void NewSettings()
@@ -124,6 +137,14 @@ public class GameSettingsManager : MonoBehaviour
         return new List<ISettingsDataPersistence>(dataPersistenceObjects);
     }
 
+    public void Update()
+    {
+        UpdateWithSettings();
+    }
+    public void Start()
+    {
+        UpdateWithSettings();
+    }
     private void OnApplicationQuit()
     {
         SaveSettings();
