@@ -2888,22 +2888,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1823294301}
     m_Modifications:
-    - target: {fileID: 2308766674057936349, guid: a3f91a217b86bf84cb042c7356917553, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 20b983746b9d8ed45ba8a3530b82cf5f, type: 2}
-    - target: {fileID: 2308766674057936349, guid: a3f91a217b86bf84cb042c7356917553, type: 3}
-      propertyPath: m_fontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2308766674057936349, guid: a3f91a217b86bf84cb042c7356917553, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2308766674057936349, guid: a3f91a217b86bf84cb042c7356917553, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8053261948560937620, guid: a3f91a217b86bf84cb042c7356917553, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

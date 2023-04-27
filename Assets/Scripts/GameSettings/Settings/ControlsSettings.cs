@@ -306,6 +306,13 @@ public class ControlsSettings : MonoBehaviour
 
     }
 
+    public void OnResetClick()
+    {
+        PlayerPrefs.SetString("binding", "");
+        string bindingData = PlayerPrefs.GetString("binding");
+        playerInput.actions.LoadBindingOverridesFromJson(bindingData);
+        UpdateKeyText();
+    }
     public void SaveBinding()
     {
         string allActionsBindingData = playerInput.actions.SaveBindingOverridesAsJson();
