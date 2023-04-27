@@ -317,5 +317,6 @@ public class ControlsSettings : MonoBehaviour
     {
         string allActionsBindingData = playerInput.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("binding", allActionsBindingData);
+        PlayerPrefs.Save();
     }
 }
