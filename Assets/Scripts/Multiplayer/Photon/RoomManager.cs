@@ -33,6 +33,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
         roomUIManager.UpdatePlayerList(PhotonNetwork.CurrentRoom.Players);
     }
 
+    static public void ChangeMasterClient(Player player)
+    {
+        if (player.IsMasterClient) return;
+        PhotonNetwork.SetMasterClient(player);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+        roomUIManager.UpdatePlayerList(PhotonNetwork.CurrentRoom.Players);
+    }
+
     public override void OnEnable()
     {
         base.OnEnable();

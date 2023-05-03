@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class RoomUIManager : MonoBehaviour
 {
@@ -41,8 +42,9 @@ public class RoomUIManager : MonoBehaviour
         foreach (KeyValuePair<int, Photon.Realtime.Player> player in playerList)
         {
             PlayerElementPrefabTemp = Instantiate(PlayerElementPrefab);
+            PlayerElementPrefabTemp.GetComponent<PlayerListElement>().player = player.Value;
+            PlayerElementPrefabTemp.GetComponent<PlayerListElement>().SetUp();
             PlayerElementPrefabTemp.transform.parent = PlayerList.transform;
-            PlayerElementPrefabTemp.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = player.Value.NickName.ToString();
             PlayerElementPrefabTemp.SetActive(true);
         }
     }
