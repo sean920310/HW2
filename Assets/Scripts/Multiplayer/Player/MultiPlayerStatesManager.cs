@@ -9,7 +9,7 @@ using Inventory;
 using Inventory.Model;
 using Photon.Pun;
 
-public class MultiPlayerStatesManager : MonoBehaviour
+public class MultiPlayerStatesManager : MonoBehaviourPunCallbacks
 {
     Animator _playerAnimator;
     Transform _playerTransform;

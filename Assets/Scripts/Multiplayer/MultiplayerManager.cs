@@ -91,7 +91,7 @@ namespace Photon.Pun.Demo.PunBasics
 			// "back" button of phone equals "Escape". quit app if that's pressed
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				QuitApplication();
+				//QuitApplication();
 			}
 		}
 

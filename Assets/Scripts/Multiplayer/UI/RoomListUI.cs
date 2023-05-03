@@ -35,7 +35,8 @@ public class RoomListUI : MonoBehaviour
             roomElementPrefabTemp.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = room.Value.Name.ToString(); // room name
             roomElementPrefabTemp.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = room.Value.PlayerCount.ToString() + " / " + room.Value.MaxPlayers.ToString(); // room name
 
-            if (room.Value.CustomProperties["pwd"] != null)
+            string roomPWD = (string)room.Value.CustomProperties["pwd"];
+            if (roomPWD.Length > 0)
             {
                 roomElementPrefabTemp.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Yes";
                 roomElementPrefabTemp.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = room.Value.CustomProperties["pwd"].ToString();

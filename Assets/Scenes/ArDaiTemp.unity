@@ -1098,22 +1098,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1 &646530103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3573399916537722077, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-  m_PrefabInstance: {fileID: 3573399917167472874}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &646530105 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3573399916537722067, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-  m_PrefabInstance: {fileID: 3573399917167472874}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646530103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3434c5a6c81c91047b9e943239fbdba9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &703403992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,10 +1107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 703403993}
-  - component: {fileID: 703403997}
   - component: {fileID: 703403996}
-  - component: {fileID: 703403995}
-  - component: {fileID: 703403994}
   m_Layer: 0
   m_Name: Photon
   m_TagString: Untagged
@@ -1141,7 +1122,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703403992}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1149,32 +1130,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &703403994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703403992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d3337a6e447a834aa286242ceb66862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomUIManager: {fileID: 1761549629}
---- !u!114 &703403995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703403992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c6124ed6164d4faae81ad9bed3d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomListUI: {fileID: 646530105}
 --- !u!114 &703403996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,20 +1143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1.0
---- !u!114 &703403997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703403992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c137a02e67ff52c40811d552aa7a7ee7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoomCreateMenu: {fileID: 646530103}
-  RoomMenu: {fileID: 1761549627}
 --- !u!114 &812714570 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2922863421615641823, guid: 1d7e3e2fd45a94d42a258397693597b9, type: 3}
@@ -2230,22 +2171,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7c158541d0b9af44be175bf0c087157, type: 3}
---- !u!1 &1761549627 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3573399917580938705, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-  m_PrefabInstance: {fileID: 3573399917167472874}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1761549629 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3573399917580938711, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-  m_PrefabInstance: {fileID: 3573399917167472874}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761549627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ac17343f475f5e49b72e1b3cd3c2627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1762050242 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6844808870526799772, guid: 074b0bf2ccdaa1b4b825f1131eb791f3, type: 3}
@@ -2856,26 +2781,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1823294301}
     m_Modifications:
-    - target: {fileID: 3573399916174610936, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403994}
-    - target: {fileID: 3573399916202577172, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403997}
-    - target: {fileID: 3573399916313544904, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403997}
-    - target: {fileID: 3573399916489526719, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403997}
-    - target: {fileID: 3573399917248620462, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403997}
     - target: {fileID: 3573399917662440713, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
       propertyPath: m_Name
       value: Multiplayer
@@ -2964,18 +2869,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3573399917983691811, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403994}
-    - target: {fileID: 3573399918003215482, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 703403997}
-    - target: {fileID: 5230842373052422575, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
-      propertyPath: createRoom
-      value: 
-      objectReference: {fileID: 703403997}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f92a15def78ef45b0ba38778d8932f, type: 3}
 --- !u!1001 &8053261947210269295

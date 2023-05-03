@@ -690,5 +690,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bdb90dfe52fe34395a3c1a2026bb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createRoom: {fileID: 0}
-  passwordFieldPrefab: {fileID: 9035526819817138572, guid: c42be934d0cee314eaaf2043e484d578, type: 3}
+  _roomName: {fileID: 2372346650197752177}
+  _password: {fileID: 2872662738418246708}

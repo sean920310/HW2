@@ -8,16 +8,9 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class CreateRoom : MonoBehaviourPunCallbacks
 {
-    [SerializeField] GameObject RoomCreateMenu;
-    [SerializeField] GameObject RoomMenu;
-
     // this is for create room
     private string _roomName;
     private string _password;
-
-    // this is for join room
-    private string _joinRoomName;
-    private bool ableToJoin; // "Room not require pwd" or "passsword correct" -> true
 
     private Int32 _maxPlayer = 2;
 
@@ -34,11 +27,6 @@ public class CreateRoom : MonoBehaviourPunCallbacks
     public void passwordUpdate(string password)
     {
         _password = password;
-    }
-
-    public void updateJoinRoomName(string joinRoomName)
-    {
-        _joinRoomName = joinRoomName;
     }
 
     public void maxPlayerUpdate(Int32 maxPlayer)
@@ -61,20 +49,7 @@ public class CreateRoom : MonoBehaviourPunCallbacks
         roomSetting.CustomRoomProperties = new Hashtable() { { "pwd", _password } };
         roomSetting.CustomRoomPropertiesForLobby =  new string[] { "pwd" };
 
-        if(PhotonNetwork.CreateRoom(_roomName, roomSetting, TypedLobby.Default))
-            MultiplayerMenuManager.resetAndOpenState(MultiplayerMenuManager.MenuStates.Room);
-    }
-
-    public void OnClickJoinRoom()
-    {
-        if (!PhotonNetwork.IsConnected)
-        {
-            Debug.Log("Server Not Connect");
-            return;
-        }
-
-        if (PhotonNetwork.JoinRoom(_joinRoomName))
-            MultiplayerMenuManager.resetAndOpenState(MultiplayerMenuManager.MenuStates.Room);
+        PhotonNetwork.CreateRoom(_roomName, roomSetting, TypedLobby.Default);
     }
 
     public override void OnCreatedRoom()

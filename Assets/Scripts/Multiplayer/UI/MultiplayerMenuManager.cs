@@ -75,6 +75,11 @@ public class MultiplayerMenuManager : MonoBehaviour
         resetAndOpenState((MenuStates)Enum.Parse(typeof(MenuStates), stateString));
     }
 
+    public void playerNameUpdate(string playerName)
+    {
+        Photon.Pun.PhotonNetwork.NickName = playerName;
+    }
+
     public void quitAPP()
     {
         Application.Quit();
