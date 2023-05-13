@@ -1,38 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class MultiplayerPlayerManager : MonoBehaviour, IDataPersistence
+public class MultiplayerPlayerManager : MonoBehaviour
 {
-    [SerializeField] MultiPlayerStatesManager psm;
-    [SerializeField] GameObject lose;
-
-    [SerializeField] float blockingRatio = 0.5f;
-
-    [SerializeField] int _maxHealth;
-    [SerializeField] int _lowHealth;
 
     [Header("Cam")]
     [SerializeField] GameObject _cmCam;
     [SerializeField] GameObject _miniMapCam;
 
-    [ReadOnly]
-    [SerializeField] int _health;
-
-    [SerializeField] int _money;
+    [Header("Weapon")]
+    [SerializeField] GameObject _weapon;
 
     private PhotonView _pv;
-    public int MaxHealth { get => _maxHealth;}
-    public int Health { get => _health; }
-    public int Money { get => _money; }
+    private PlayerStatesManager _psm;
+    private bool playerAttack = false;
 
     private void Start()
     {
-        _health = MaxHealth;
+        _psm = GetComponent<PlayerStatesManager>();
         _pv = GetComponent<PhotonView>();
 
         if(_pv.IsMine)
@@ -51,44 +39,45 @@ public class MultiplayerPlayerManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        //GetComponent<PlayerInput>() = GameObject.Find("A").GetComponent<PlayerInput>();
-        DamageEffect.LowHealth(_health <= _lowHealth);
-
-        if(this.transform.position.y < -20 || _health <= 0)
+        if(_psm.IsAttacking && !playerAttack)
         {
-            //dead
-            lose.SetActive(true);
-            Time.timeScale = 0;
+            playerAttack = true;
+            CallRpcPlayerAttackStart();
         }
+        if(playerAttack && !_psm.IsAttacking)
+        {
+            playerAttack = false;
+            CallRpcPlayerAttackEnd();
+        }
+
     }
 
-    public void LoadData(GameData data)
+    #region PunRPC
+
+    public void CallRpcPlayerAttackStart()
     {
-        this.transform.position = data.playerPosition;
-        this._money = data.coinCount;
+        _pv.RPC("RpcPlayerAttackStart", RpcTarget.All, _pv.Owner);
     }
 
-    public void SaveData(GameData data)
+    [PunRPC]
+    void RpcPlayerAttackStart(Player player, PhotonMessageInfo info)
     {
-        data.playerPosition = this.transform.position;
-        data.coinCount = this._money;
+        if(player == _pv.Owner)
+            _weapon.SetActive(true);
     }
 
-    public void GetDamage(int damage)
+
+    public void CallRpcPlayerAttackEnd()
     {
-        if (psm.CurrentState.ToString() == "PlayerBlockingState")
-            _health -= (int)((float)damage * blockingRatio);
-        else
-            _health -= damage;
-        psm.SwitchState(psm.Factory.Hurt());
-        StartCoroutine(DamageEffect.GetDamage());
+        _pv.RPC("RpcPlayerAttackEnd", RpcTarget.All, _pv.Owner);
     }
-    public void AddHealth(int val)
+
+    [PunRPC]
+    void RpcPlayerAttackEnd(Player player, PhotonMessageInfo info)
     {
-        _health += Mathf.Abs( val);
+        if (player == _pv.Owner)
+            _weapon.SetActive(false);
     }
-    public void AddMoney(int val)
-    {
-        _money += Mathf.Abs(val);
-    }
+
+    #endregion
 }

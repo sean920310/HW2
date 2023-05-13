@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory;
 using Inventory.Model;
+using Photon.Pun;
 
 public class PlayerStatesManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerStatesManager : MonoBehaviour
     Rigidbody2D _playerRigidbody;
     BoxCollider2D _playerBoxCollider;
     SpriteRenderer _playerSpriteRenderer;
+    PhotonView _pw;
 
     PlayerBaseState _currentState = null;
     PlayerStateFactory _factory = null;
@@ -35,6 +37,7 @@ public class PlayerStatesManager : MonoBehaviour
     int _AttackCount;
     bool _canAttack; // affect by cool down
     bool _isPlayerInvincible; // affect by cool down
+    bool _isAttacking; //when weapon active
     [SerializeField] public BackpackController backpack;
     [Header("Move")]
     [SerializeField] float _playerMoveSpeed;
@@ -155,6 +158,7 @@ public class PlayerStatesManager : MonoBehaviour
     public bool SlideInvincibleShowSprite { get => _slideInvincibleShowSprite; set => _slideInvincibleShowSprite = value; }
     public bool IsPlayerInvincible { get => _isPlayerInvincible; set => _isPlayerInvincible = value; }
     public float SlideInvincibleEndSpeedX { get => _slideInvincibleEndSpeedX; set => _slideInvincibleEndSpeedX = value; }
+    public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
 
     #region readonly inspector
     [ReadOnly]
@@ -170,6 +174,7 @@ public class PlayerStatesManager : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _playerBoxCollider = GetComponent<BoxCollider2D>();
         _playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        _pw = GetComponent<PhotonView>();
 
         // state setup
         Factory = new PlayerStateFactory(this);
@@ -185,14 +190,16 @@ public class PlayerStatesManager : MonoBehaviour
 
     private void Update()
     {
-        _currentState.UpdateState();
+        if(_pw.IsMine)
+            _currentState.UpdateState();
 
         CurrentStateString = _currentState.ToString();
     }
 
     private void FixedUpdate()
     {
-        _currentState.FixedUpdateState();
+        if (_pw.IsMine)
+            _currentState.FixedUpdateState();
     }
 
     public void SwitchState(PlayerBaseState newState)

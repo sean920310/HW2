@@ -46,6 +46,7 @@ public class PlayerAttackState : PlayerBaseState
 
         // Set Weapon and Player animation
         _context.Weapon.SetActive(true);
+        _context.IsAttacking = true;
         _context.Weapon.GetComponent<Animator>().SetInteger("AttackCount", _context.AttackCount);
         _context.PlayerAnimator.SetInteger("AttackCount", _context.AttackCount);
 
@@ -86,6 +87,7 @@ public class PlayerAttackState : PlayerBaseState
         Debug.Log("WTF?????????????");
         _context.PlayerRigidbody.isKinematic = false;
         _context.Weapon.SetActive(false);
+        _context.IsAttacking = false;
 
         _context.PlayerBoxCollider.sharedMaterial = _context.NormalPhysics;
 
