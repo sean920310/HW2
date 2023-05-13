@@ -10,6 +10,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private Dictionary<int, Player> playerList;
 
     [SerializeField] RoomUIManager roomUIManager;
+    [SerializeField] LoadingScene loader;
 
     private void Start()
     {
@@ -88,9 +89,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.LoadLevel(1);
+            //PhotonNetwork.CurrentRoom.IsOpen = false;
+            //PhotonNetwork.CurrentRoom.IsVisible = false;
+            loader.MuliplayerLoadScene(1);
         }
     }
 }
